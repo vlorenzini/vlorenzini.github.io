@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> POllOCK SIMULATOR </title>
+		<meta name="viewport" content="width=device-width">
+		<meta charset = "utf-8">
+		<link rel="stylesheet" type="text/css" href="pollockSimulator.css">
+		<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+	</head>
+	<body>
+		<div id = "page-content">
+			<header> POLLOCK SIMULATOR</header>
+			<canvas id = "canvas" width = "1000" height = "500" style = "background-color: rgb(250, 234, 211); border:1px solid black;"></canvas>
+			<div id = "button-container">
+				<button class = "button" onclick = "doDrip()">Drips</button>
+				<button class = "button" onclick = "doSplatter()">Splatter</button>
+				<button class = "button" onclick = "doSplotch()">Splotch</button>
+				<div id = "vertical-line"></div>
+				<button class = "button" onclick = "runRandom()">Random</button>
+			</div>
+			<button class = "refresh-button" onclick = "window.location.reload()">Refresh</button>
+		</div>
+	</body>
+<script type="text/javascript">
+	class GraphicsCanvas {
+		constructor() {
+			this.x = 0; this.y = 0; this.redcolor = 255; this.bluecolor = 0; this.greencolor = 0;
+			this.c = document.getElementById("canvas");
+			this.ctx = this.c.getContext("2d");
+		}
+		drip() {
+			var num = randomNumber(200, 5);
+			var ctx = this.ctx;
+			var r = randomNumber(255, 0);
+			var g = randomNumber(255, 0);
+			var b = randomNumber(255, 0);
+			ctx.strokeStyle = 'rgb('+ r + ',' + g + ',' + b + ')';
+			ctx.fillStyle = 'rgb('+ r + ',' + g + ',' + b + ')';
+			for (var i = 0; i<num; i++) {
+				var length = randomNumber(400, 0);
+				var angle = randomNumber(8, 1);
+				var x = randomNumber(1000, -100);
+				var y = randomNumber(500, -100);
+				let x4upperLimit = length + x;
+				let x4lowerLimit = length/2.5 + x;
+				let y4upperLimit = length/2 + y;
+				let y4lowerLimit = y;
+				let coordArray = [(length*0.53+x), (length+y), (length/2+x), (length+y), (length/2+x), y, 0, 0];
+
+				if (angle == 2) {
+					coordArray[0] = length*0.47+x;
+					x4upperLimit = length/1.5 + x;
+					x4lowerLimit = x;
+				}
+				if (angle == 3 || angle == 4) {
+					coordArray.swap(3, 5);
+					coordArray[1] = y;
+					y4upperLimit = length + y;
+					y4lowerLimit = length/2 + y;
+					if (angle == 4) {
+						coordArray[0] = length*0.47 + x;
+						x4upperLimit = length/2.5 + x;
+						x4lowerLimit = x;
+					}
+				}
+				if (angle == 5 || angle == 6 || angle == 7 || angle == 8) {
+					coordArray = [x, (length*0.53+y), x, (length/2+y), (length+x), (length/2+y), 0, 0];
+					y4upperLimit = length + y;
+					y4lowerLimit = length/2.5 + y;
+					if (angle == 6) {
+						y4upperLimit = length/1.5 + y;
+						y4lowerLimit = y;
+						coordArray[1] = length * 0.47 + y;
+					}
+					if (angle == 7 || angle == 8) {
+						x4upperLimit = length/2 + x;
+						x4lowerLimit = x;
+						coordArray[0] = length + x;
+						coordArray.swap(2, 4);
+					}
+					if (angle == 8) {
+						y4upperLimit = length/1.5 + y;
+						y4lowerLimit = y;
+						coordArray[1] = length * 0.47 + y;
+					}
+				}
+				coordArray[6]  = randomNumber(x4upperLimit, x4lowerLimit);
+				coordArray[7] = randomNumber(y4upperLimit, y4lowerLimit);
+				ctx.lineWidth = randomNumber(3, 1);
+				ctx.beginPath();
+				ctx.moveTo(coordArray[0], coordArray[1]);
+				ctx.bezierCurveTo(coordArray[2], coordArray[3], coordArray[4], coordArray[5], coordArray[6], coordArray[7]);
+				ctx.stroke();
+			}
+		}
+		splatter() {
+			var ctx = this.ctx;
+			var number = randomNumber(30, 5);
+			var num = randomNumber(60, 1);
+			var r = randomNumber(255, 0);
+			var g = randomNumber(255, 0);
+			var b = randomNumber(255, 0);
+			ctx.strokeStyle = 'rgb('+ r + ',' + g + ',' + b + ')';
+			ctx.fillStyle = 'rgb('+ r + ',' + g + ',' + b + ')';
+			for (var x = 0; x < num; x++) {
+				var startx = randomNumber(1000, -100);
+				var starty = randomNumber(500, -100);
+				var upperX = startx + number*4;
+				var upperY = starty + number*4;
+				for (var i = 0; i < number; i++) {
+					var radius = randomNumber(3, 1);
+					var posx = randomNumber(upperX, startx);
+					var posy = randomNumber(upperY, starty);
+					ctx.beginPath();
+					ctx.arc(posx, posy, radius, 0, 2 *Math.PI);
+					ctx.fill();
+				}
+			}
+		}
+		splotch() {
+			var num = randomNumber(15, 1);
+			var ctx = this.ctx;
+			var r = randomNumber(255, 0);
+			var g = randomNumber(255, 0);
+			var b = randomNumber(255, 0);
+			ctx.strokeStyle = 'rgb('+ r + ',' + g + ',' + b + ')';
+			ctx.fillStyle = 'rgb('+ r + ',' + g + ',' + b + ')';
+			for (var i = 0; i < num; i++) {
+				var width = randomNumber(15, 1);
+				var height = randomNumber(width*3, width);
+				var x = randomNumber(1000, width/2);
+				var y = randomNumber(500, height/2);
+				ctx.beginPath();
+				ctx.moveTo(x, y);
+				ctx.bezierCurveTo(x+(width/2), y, x+(width/2), y-height, x, y-height);
+				ctx.fill();
+				ctx.beginPath();
+				ctx.moveTo(x, y);
+				ctx.bezierCurveTo(x-(width/2), y, x-(width/2), y-height, x, y-height);
+				ctx.fill();
+			}
+		}
+	}
+	const sleep = (milliseconds) => {
+		return new Promise(resolve => setTimeout(resolve, milliseconds));
+	}
+	function doDrip() {
+		var canvas = new GraphicsCanvas();
+		canvas.drip();
+	}
+	function doSplatter() {
+		var canvas = new GraphicsCanvas();
+		canvas.splatter();
+	}
+	function doSplotch() {
+		var canvas = new GraphicsCanvas();
+		canvas.splotch();
+	}
+	function runRandom() {
+		var num = randomNumber(80, 10);
+		for (var i = 0; i < num; i++) {
+			var type = randomNumber(3, 1);
+			if (type == 1) {
+				doDrip();
+			}
+			if (type == 2) {
+				doSplatter();
+			}
+			if (type == 3) {
+				doSplotch();
+			}
+		}
+	}
+	Array.prototype.swap = function(x, y) {
+		var a = this[x];
+		this[x] = this[y];
+		this[y] = a;
+		return this;
+	}
+	function randomNumber(high, low) {
+		var num = Math.floor(Math.random()*(high-low +1 )) + low;
+		return num;
+	}
+</script>
+</html>
