@@ -39,7 +39,7 @@ header {
 .button:hover {
 	color: #57F065;
 }
-.refresh-button {
+#refresh-button {
 	display: block;
 	margin: 0 auto;
 	border: none;
@@ -47,11 +47,11 @@ header {
 	cursor: pointer;
 	transition: 0.3s;
 	font-family: 'Anton', sans-serif;
-	size: 20px;
+	font-size: 15px;
 	text-align: center;
 	padding-bottom: 10px;
 	color: #7F8C8D;
 }
-.refresh-button:hover {
+#refresh-button:hover {
 	color: #CCD1D1;
 }
