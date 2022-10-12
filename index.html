@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang = "en">
+<html>
+<head>
+	<meta name="viewport" content="width=device-width">
+	<meta charset = "utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://use.typekit.net/tdb1aru.css">
+	<title>St. Pius X Health Centre Data Visualization</title>
+</head>
+<body>
+	<a target="_blank" href = "https://www.tssfcameroonhealth.de/health-centers/st-pius-x-health-center-tatum/">
+		<img class = "pointer" id = "logo" alt = "logo" src = "images/logo.png">
+	</a>
+	<div id = "map">
+		<img alt = "map of africa" src = "images/map.svg">
+	</div>
+	<main>
+		<header class = "margin">St. Pius X Health<br>Centre Tatum</header>
+		<section class = "flex margin margin-top-bottom">
+			<div id = "introduction">
+				<p>St. Pius X Health Centre Tatum has been serving the village of Tatum, Cameroon since 1968. Tatum is an isolated region with limited access to larger medical facilities. Since September 2018, the connection to Kumbo, the nearest city, was blocked for vehicles. This has made the work of St. Pius X indispensable. With health insurance being almost nonexistent in Cameroon, it typically falls upon family members to meet the costs of treatment. St. Pius X is committed to treating all members of the community, including the poor and vulnerable, and supporting them as much as possible. The health centre has worked in collaboration with international health organizations like Medicines for Humanity and is one of the leading refferal locations in the region. The centre utilizes up-to-date clinical services and a holistic approach to health to provide thoughtful and professional care to its patients. Collaborations with advanced facilities (St. Elizabeths in Shisong, Baptist Hospital and the District Hospital in Ndu) enable a stable network for further refferals. Furthermore, the centre ensures its staff are well-equiped and informed on new modalities, offering classes once a month. Over the past two years, we have seen the centre continue to grow, with increased use of services recorded across the board.</p>
+			</div>
+			<div id = "location">
+				<p><strong>Location</strong><br>It is located in Cameroon, Bui Division, Nkum Sub-Division, Kumbo East Health District and in the village of Tatum, 24km from Kumbo town with an area population of 12,667 inhabitants.</p>
+			</div>
+		</section>
+		<section class = "margin margin-top-bottom">
+			<h1>General Statistics 2020 and 2021</h1>
+			<div class = "flex margin-top">
+				<img id = "bar" alt = "bar graph" src = "images/bar_general.svg">
+				<div class = "category">
+					<button class = "button selected" onmouseover = "loadImage(this, 'images/bar_general.svg', 'images/line_general.svg')">General consultation</button>
+					<button class = "button" onmouseover = "loadImage(this, 'images/bar_laboratory.svg', 'images/line_laboratory.svg')">Laboratory</button>
+					<button class = "button border-bottom keepborder" onmouseover = "loadImage(this, 'images/bar_mother.svg', 'images/line_mother.svg')">Mother & child Welfare clinic</button>
+
+					<div class = "break"></div>
+
+					<button class = "button" onmouseover = "loadImage(this, 'images/bar_admissions.svg', 'images/line_admissions.svg')">Admissions</button>
+					<button class = "button" class = "border-bottom" onmouseover = "loadImage(this, 'images/bar_antenatal.svg', 'images/line_antenatal.svg')">Antenatal care</button>
+					<button class = "button" onmouseover = "loadImage(this, 'images/bar_maternity.svg', 'images/line_maternity.svg')">Maternity / Delivery</button>
+					<button class = "button" onmouseover = "loadImage(this, 'images/bar_operation.svg', 'images/line_operation.svg')">Minor/major operations</button>
+					<button class = "button" onmouseover = "loadImage(this, 'images/bar_ultrasound.svg', 'images/line_ultrasound.svg')">Ultrasound</button>
+					<button class = "button" onmouseover = "loadImage(this, 'images/bar_circumcision.svg', 'images/line_circumcision.svg')">Circumcisions</button>
+					<button class = "button border-bottom keepborder" onmouseover = "loadImage(this, 'images/bar_refferal.svg', 'images/line_refferal.svg')">Refferals</button>
+
+					<div class = "break"></div>
+
+					<button class = "button" onmouseover = "loadImage(this, 'images/bar_deaths.svg', 'images/line_deaths.svg')">Deaths</button>
+					<button class = "button border-bottom keepborder" onmouseover = "loadImage(this, 'images/bar_stillbirth.svg', 'images/line_stillbirth.svg')">Still birth</button>
+
+				</div>
+				<img id = "line" alt = "line graph" src = "images/line_general.svg">
+			</div>
+		</section>
+		<section class = "green-background">
+			<div class = "margin">
+				<h1 style = "text-align: center;">Prevailing Diseases 2021</h1>
+				<div class = "grid margin-top">
+					<img id = "donut" alt = "donut chart" src = "images/diseases.svg">
+					<div style = "margin-bottom: 4vw;" class = "disease-container tinypadding">
+						<img id = "htn" alt = "disease" src = "images/HTN.svg">
+						<p><span style = "font-weight: 600;">Hypertension</span> remains the most prevalent health condition here in Tatum and rates of diagnosis have remained steady throughout the year. Causes are associated with poor nutrition, stress, lack of proper finances to purchase medications, and an aging population that has fled from socio-political crisis.</p>
+					</div>
+					<div class = "disease-container tinypadding">
+						<img id = "urti" alt = "disease" src = "images/URTI.svg">
+						<p><span style = "font-weight: 600;">Upper Respiratory Tract Infection</span><br>April had the highest incidence of URTI with 31 total cases reported. In July, this number drastically reduced to 5 cases, followed by an upward trend to 19 cases in August and 20 cases in September. This increase is associated with the colder climate.</p>
+					</div>
+					<div class = "disease-container align-self">
+						<img id = "malaria" alt = "disease" src = "images/Malaria.svg">
+						<p><span style = "font-weight: 600;">Malaria</span><br>February had the highest incidence of malaria with 45 total cases reported. However, following a  sensitization campaign lead by a group of community health workers, this number reduced dramatically to 15 cases in April. By September, only 11 cases were reported.</p>
+					</div>
+					<div class = "disease-container align-self">
+						<img id = "ge" alt = "disease" src = "images/GE.svg">
+						<p><span style = "font-weight: 600;">Gastroenteritis</span><br>From January to March, gastroenteritis had a stable rate of diagnosis. A sudden increase in incidence was observed from 4 cases in March to 20 in April. This was followed by a steady decrease from 17 cases in May to 5 in August. Cases of gastroenteritis are typically associated with norovirus and bacterial infection as well as parasitic infection.</p>
+					</div>
+						<div class = "disease-container align-self">
+						<img id = "pud" alt = "disease" src = "images/PUD.svg">
+						<p><span style = "font-weight: 600;">Peptic Ulcer Disease (PUD)</span> remains one of the most frequently occurring diagnoses in Tatum. The highest rate of diagnosis was seen in March with 14 cases reported while the lowest was seen in February with 4.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class = "margin padding-top-bottom">
+			<h1>Facilities and Services</h1>
+			<ul class = "grid-services margin-top">
+				<li>Maternity Department</li>
+				<li>In Patient Department</li>
+				<li>Out Patient Department</li>
+				<li>Laboratory</li>
+				<li>Information on Personal Protective  Equipment for Covid 19</li>
+				<li>Ultrasonography</li>
+				<li>Rehabilitation</li>
+				<li>Attending to Internally Displaced  Persons</li>
+				<li>Pharmacy / Dispensary</li>
+			</ul>
+		</section>
+		<section class = "green-background">
+			<div class = "margin padding-top-bottom">
+				<h1>Engage</h1>
+				<div class = "flex-2 padding-top">
+					<p id = "engage-text">Assitance has been instrumental in sustaining the services provided by St. Pius X. Financing health care workers, supporting the poor and vulnerable, and paying for renovations has been difficult during the Covid-19 pandemic. Financial support is still hugely needed to help settle debts for the procurement of medications and materials needed in daily care, to settle bills of patients with poor financial possessions, and for general renovation work. Moreover, the health centre is in need of a monitor for patients in critical condition, as well as drip stands and crutches. They also hope to further equip the canteen so that it can keep up with the basic needs of patients and the indigenous population.</p>
+					<img id = "photo" alt = "photo of health centre" src = "images/photo.png">
+				</div>
+				<a class = "get-involved" target="_blank" href = "https://www.tssfcameroonhealth.de/contact/">
+					<h2 class = "pointer">Get involved</h2>
+					<img class = "icon-2" alt = "website" src = "images/open.svg">
+				</a>
+			</div>
+		</section>
+		<footer class = "green-background">
+			<div class = "flex-2 margin">
+				<a class = "flex-2" target="_blank" href = "https://www.tssfcameroonhealth.de/">
+					<img class = "icon pointer" alt = "website" src = "images/website.svg">
+					<p class = "pointer">www.tssfcameroonhealth.de</p>
+				</a>
+				<div class = "flex-2">
+					<img class = "icon" alt = "website" src = "images/phone.svg">
+					<p>00237 683 77 77 38</p>
+				</div>
+				<a target="_blank" href  = "mailto:tssfhealthdirector@gmail.com" class = "flex-2">
+					<img class = "icon pointer" alt = "website" src = "images/email.svg">
+					<p class = "pointer">tssfhealthdirector@gmail.com</p>
+				</a>
+				<div class = "flex-2">
+					<img class = "icon" alt = "website" src = "images/location.svg">
+					<p>P.O Box 8 Kumbo, Cameroon</p>
+				</div>
+			</div>
+		</footer>
+	</main>
+</body>
+<script>
+	function loadImage(element, src1, src2) {
+		var i;
+		var buttons = document.getElementsByClassName('button');
+		for (i = 0; i < buttons.length; i++) {
+			buttons[i].style.borderTop = "1px solid #E8F0EC";
+			buttons[i].style.borderBottom = "none";
+			buttons[i].style.fontWeight = "400";
+			buttons[i].style.fontSize = "14px";
+		}
+		var keep = document.getElementsByClassName('keepborder');
+		for (i = 0; i < keep.length; i++) {
+			keep[i].style.borderBottom = "1px solid #E8F0EC";
+		}
+		element.style.fontSize = "13.7px";
+		element.style.fontWeight = "600";
+		element.style.borderTop = "1px solid black";
+		element.style.borderBottom = "1px solid black";
+		document.getElementById('bar').src = src1;
+		document.getElementById('line').src = src2;
+	}
+</script>
+</html>
