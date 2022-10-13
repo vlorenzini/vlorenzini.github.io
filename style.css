@@ -92,7 +92,7 @@ section {
 	grid-column-gap: 12%;
 }
 .margin-top {
-	margin-top: 5.8vw;
+	margin-top: 5vw;
 }
 #introduction {
 	width: 62%;
@@ -141,8 +141,25 @@ button {
 	width: 48%;
 	margin-right: 5vw;
 }
+#donut-container-container {
+	position: relative;
+}
+#donut-container {
+	position: absolute;
+	width: 100%;
+	left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
 #donut {
 	width: 100%;
+}
+#donut-title {
+	position: absolute;
+	margin: 0 auto;
+    left: 50%;
+    top: 53%;
+    transform: translate(-50%, -53%);
 }
 #htn {
 	width: calc(100% * 0.33);

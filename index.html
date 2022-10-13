@@ -7,6 +7,9 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" href="https://use.typekit.net/tdb1aru.css">
 	<title>St. Pius X Health Centre Data Visualization</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js" integrity="sha512-Tfw6etYMUhL4RTki37niav99C6OHwMDB2iBT5S5piyHO+ltK2YX8Hjy9TXxhE1Gm/TmAV0uaykSpnHKFIAif/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<a target="_blank" href = "https://www.tssfcameroonhealth.de/health-centers/st-pius-x-health-center-tatum/">
@@ -57,7 +60,12 @@
 			<div class = "margin">
 				<h1 style = "text-align: center;">Prevailing Diseases 2021</h1>
 				<div class = "grid margin-top">
-					<img id = "donut" alt = "donut chart" src = "Images/diseases.svg">
+					<div id = "donut-container-container">
+						<div id = "donut-container">
+							<div id = "donut-title"><p>2021</p></div>
+							<canvas id="donut" alt = "doughnut chart"></canvas>
+						</div>
+					</div>
 					<div style = "margin-bottom: 4vw;" class = "disease-container tinypadding">
 						<img id = "htn" alt = "disease" src = "Images/HTN.svg">
 						<p><span style = "font-weight: 600;">Hypertension</span> remains the most prevalent health condition here in Tatum and rates of diagnosis have remained steady throughout the year. Causes are associated with poor nutrition, stress, lack of proper finances to purchase medications, and an aging population that has fled from socio-political crisis.</p>
@@ -115,22 +123,85 @@
 					<p class = "pointer">www.tssfcameroonhealth.de</p>
 				</a>
 				<div class = "flex-2">
-					<img class = "icon" alt = "website" src = "Images/phone.svg">
+					<img class = "icon" alt = "phone number" src = "Images/phone.svg">
 					<p>00237 683 77 77 38</p>
 				</div>
 				<a target="_blank" href  = "mailto:tssfhealthdirector@gmail.com" class = "flex-2">
-					<img class = "icon pointer" alt = "website" src = "Images/email.svg">
+					<img class = "icon pointer" alt = "email" src = "Images/email.svg">
 					<p class = "pointer">tssfhealthdirector@gmail.com</p>
 				</a>
 				<div class = "flex-2">
-					<img class = "icon" alt = "website" src = "Images/location.svg">
+					<img class = "icon" alt = "P.O box" src = "Images/location.svg">
 					<p>P.O Box 8 Kumbo, Cameroon</p>
 				</div>
 			</div>
 		</footer>
 	</main>
 </body>
+
 <script>
+	var values = [116, 93, 233, 169, 140];
+	var colors = ["#69A0C2", "#C8AACA", "#F4A582", "#B1A59A", "#BCC3CA"];
+	var labels = ['116', '93', '233', '169', '140'];
+
+
+	var inView = false;
+
+	function isScrolledIntoView(elem) {
+    	var docViewTop = $(window).scrollTop();
+    	var docViewBottom = docViewTop + $(window).height();
+
+    	var elemTop = $(elem).offset().top;
+    	var elemBottom = elemTop + $(elem).height();
+
+    	return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
+	}
+
+	$(window).scroll(function() {
+   		if (isScrolledIntoView('#donut')) {
+        	if (inView) { return; }
+        	inView = true;
+        	new Chart("donut", {
+  				type: "doughnut",
+  				data: {
+    				datasets: [{
+      					backgroundColor: colors,
+      					data: values,
+      					borderColor: '#E8F0EC',
+      					borderWidth: 4,
+      					hoverOffset: 0,
+      					hoverBorderColor: '#E8F0EC'
+    				}]
+  				},
+  				options: {
+  					responsive: true,
+  					events: [],
+  					plugins: {
+  						datalabels: {
+  							color: 'black',
+  							font: function(context) {
+          						var width = context.chart.width;
+          						var size = Math.round(width / 18);
+        						return {
+          							size: size
+          						};
+        					},
+  						},
+  					}
+  				},
+  				plugins: [ChartDataLabels]
+			});
+    	} else {
+        	inView = false;  
+    	}
+	});
+
+	var width = document.getElementById('donut').offsetWidth;
+	var size = Math.round(width / 20);
+	console.log(size);
+	document.getElementById('donut-title').style.fontSize = (size.toString() + 'px');
+
+
 	function loadImage(element, src1, src2) {
 		var i;
 		var buttons = document.getElementsByClassName('button');
