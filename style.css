@@ -46,7 +46,7 @@ h2 {
 }
 .hidden {
 	opacity: 0;
-	transform: translateY(50%);
+	transform: translateY(80%);
 	transition: all 2s;
 }
 .show {
