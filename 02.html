@@ -17,11 +17,11 @@
 			<a href = "references.html">Works Cited</a>
 		</nav>
 		<div class = "arrow-back">
-			<a href = "index.html"><img style = "margin-right: 1em; rotate: 180deg;" class = "arrow" alt = "next-page-arrow" src = "arrow.svg"></a>
+			<a href = "index.html"><img class = "arrow" alt = "next-page-arrow" src = "arrow-left.svg"></a>
 		</div>
 		<div class = "essay-container">
 			<div id = "essay">
-				<div class = "label section-number">02.</div>
+				<div class = "section-number">02.</div>
 				<h1>Visualizing the virtual archive</h1>
 				<br>
 				<br>
@@ -35,9 +35,18 @@
 				<br>
 			</div>	
 			<div id = "sources" class = "slow-scroll">
-				<img onmouseover="imageFocus('image-1')" onmouseout = "unFocus('image-1')" class = "source-image hidden" alt = "after-yang" src = "after-yang.jpg">
-				<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.youtube.com/watch?v=Kwp32zLc08c"><span style = "font-style: normal;">After Yang</span> trailer</a>
-				<img onmouseover="imageFocus('image-2')" onmouseout = "unFocus('image-2')" class = "source-image hidden" alt = "cpu" src = "cpu.jpg">
+				<div class = "sources-flex">
+					<img onmouseover="imageFocus('image-1')" onmouseout = "unFocus('image-1')" class = "source-image hidden" alt = "after-yang" src = "after-yang.jpg">
+					<p class = "caption hidden"><span style = "font-style: italic;">After Yang</span> (2021) film poster</p>	
+				</div>
+				<div class = "link-flex">
+					<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.youtube.com/watch?v=Kwp32zLc08c"><span style = "font-style: normal;">After Yang</span> trailer</a>
+					<img class = "tiny-arrow hidden" alt = "arrow" src = "arrow.svg">		
+				</div>
+				<div class = "sources-flex">
+					<img onmouseover="imageFocus('image-2')" onmouseout = "unFocus('image-2')" class = "source-image hidden" alt = "cpu" src = "cpu.jpg">
+					<p class = "caption hidden">Close-up of computer CPU</p>	
+				</div>
 			</div>
 			<img id = "image-1" class = "source-image-selected" alt = "after-yang" src = "after-yang.jpg">
 			<img id = "image-2" class = "source-image-selected" alt = "cpu" src = "cpu.jpg">
@@ -50,8 +59,14 @@
 					<br>	
 			</div>
 			<div id = "sources" class = "slow-scroll">
-				<img onmouseover="imageFocus('image-3')" onmouseout = "unFocus('image-3')" class = "source-image hidden" alt = "mandelbrot-gif" src = "mandelbrot.gif">
-				<a class = "label source-image note-link hidden" target = "_blank" href = "https://en.wikipedia.org/wiki/Mandelbrot_set">More info on Mandelbrot Sets</a>
+				<div class = "sources-flex">
+					<img onmouseover="imageFocus('image-3')" onmouseout = "unFocus('image-3')" class = "source-image hidden" alt = "mandelbrot-gif" src = "mandelbrot.gif">
+					<p class = "caption hidden">Mandelbrot animation</p>	
+				</div>
+				<div class = "link-flex">
+					<a class = "label source-image note-link hidden" target = "_blank" href = "https://en.wikipedia.org/wiki/Mandelbrot_set">More info on Mandelbrot Sets</a>	
+					<img class = "tiny-arrow hidden" alt = "arrow" src = "arrow.svg">	
+				</div>
 			</div>
 			<img id = "image-3" class = "source-image-selected" alt = "mandelbrot-gif" src = "mandelbrot.gif">
 		</div>
@@ -63,9 +78,18 @@
 					<br>	
 			</div>
 			<div id = "sources" class = "slow-scroll">
-				<img onmouseover="imageFocus('image-4')" onmouseout = "unFocus('image-4')" class = "source-image hidden" alt = "early-web-page" src = "www.jpg">
-				<img onmouseover="imageFocus('image-5')" onmouseout = "unFocus('image-5')" class = "source-image hidden" alt = "enquire-program" src = "enquire.jpg">
-				<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.computerhistory.org/timeline/1980/">A timeline of computer history</a>
+				<div class = "sources-flex">
+					<img onmouseover="imageFocus('image-4')" onmouseout = "unFocus('image-4')" class = "source-image hidden" alt = "early-web-page" src = "www.jpg">
+					<p class = "caption hidden"><span style = "font-style: italic;">First Mircrosoft landing page</p>	
+				</div>
+				<div class = "sources-flex">
+					<img onmouseover="imageFocus('image-5')" onmouseout = "unFocus('image-5')" class = "source-image hidden" alt = "enquire-program" src = "enquire.jpg">
+					<p class = "caption hidden"><span style = "font-style: italic;">Enquire program</p>	
+				</div>
+				<div class = "link-flex">
+					<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.computerhistory.org/timeline/1980/">A timeline of computer history</a>
+					<img class = "tiny-arrow hidden" alt = "arrow" src = "arrow.svg">		
+				</div>
 			</div>
 			<img id = "image-4" class = "source-image-selected" alt = "early-web-page" src = "www.jpg">
 			<img id = "image-5" class = "source-image-selected" alt = "enquire-program" src = "enquire.jpg">
@@ -88,7 +112,7 @@
 	</div>
 	<footer>
 		<div class = "footer-flex">
-			<a href = "index.html"><img style = "margin-right: 1em; rotate: 180deg;" class = "arrow" alt = "next-page-arrow" src = "arrow.svg"></a>
+			<a href = "index.html"><img style = "margin-right: 1em;" class = "arrow" alt = "next-page-arrow" src = "arrow-left.svg"></a>
 			<a href = "index.html"><div class = "label next">Back</div></a>
 		</div>
 		<div class = "footer-flex">

@@ -2,7 +2,7 @@
 let a = 0; //increment value
 
 function setup() {
-  let canvas = createCanvas(width*2.5, height*2.5);
+  let canvas = createCanvas(width*2.4, height*2.4);
   canvas.parent('p5Animation');
 }
 
