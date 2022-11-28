@@ -1,226 +1,162 @@
 <!DOCTYPE html>
 <html lang = "en">
-<html>
 <head>
-	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1"/>
 	<meta charset = "utf-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" href="https://use.typekit.net/tdb1aru.css">
-	<title>St. Pius X Health Centre Data Visualization</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js" integrity="sha512-Tfw6etYMUhL4RTki37niav99C6OHwMDB2iBT5S5piyHO+ltK2YX8Hjy9TXxhE1Gm/TmAV0uaykSpnHKFIAif/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.typekit.net/nym6teo.css">
+	<title>Infinite Archive</title>
 </head>
 <body>
-	<a target="_blank" href = "https://www.tssfcameroonhealth.de/health-centers/st-pius-x-health-center-tatum/">
-		<img class = "pointer" id = "logo" alt = "logo" src = "Images/logo.png">
-	</a>
-	<div id = "map">
-		<img alt = "map of africa" src = "Images/map.svg">
+	<div class = "full-page">
+		<div class = "title">
+			<h1 style = "font-style: normal;">Infinite Archive</h1>
+			<h2>The Body-Machine Connection and Digital Memory</h2>	
+		</div>
+		<img class = "scroll" id = "carrot" alt = "arrow-down" src = "carrot.svg">
 	</div>
-	<main>
-		<header class = "margin">St. Pius X Health<br>Centre Tatum</header>
-		<section class = "flex margin margin-top-bottom">
-			<div id = "introduction">
-				<p>St. Pius X Health Centre Tatum has been serving the village of Tatum, Cameroon since 1968. Tatum is an isolated region with limited access to larger medical facilities. Since September 2018, the connection to Kumbo, the nearest city, was blocked for vehicles. This has made the work of St. Pius X indispensable. With health insurance being almost nonexistent in Cameroon, it typically falls upon family members to meet the costs of treatment. St. Pius X is committed to treating all members of the community, including the poor and vulnerable, and supporting them as much as possible. The health centre has worked in collaboration with international health organizations like Medicines for Humanity and is one of the leading refferal locations in the region. The centre utilizes up-to-date clinical services and a holistic approach to health to provide thoughtful and professional care to its patients. Collaborations with advanced facilities (St. Elizabeths in Shisong, Baptist Hospital and the District Hospital in Ndu) enable a stable network for further refferals. Furthermore, the centre ensures its staff are well-equiped and informed on new modalities, offering classes once a month. Over the past two years, we have seen the centre continue to grow, with increased use of services recorded across the board.</p>
+	<div id = "main-content-container">
+		<nav>
+			<a href = "index.html" class = "nav-selected">Extensions of the body</a>
+			<a href = "02.html">Visualizing the virtual archive</a>
+			<a href = "03.html">The archive of the everyday</a>
+			<a href = "04.html">The infinite archive</a>
+			<a href = "references.html">Works Cited</a>
+		</nav>
+		<div class = "essay-container">
+			<div id = "essay">
+				<div class = "label section-number">01.</div>
+				<h1>Extensions of the body</h1>
+				<p id = "quote">
+					“Today, after more than a century of electric technology, we have extended our central
+					nervous system itself in a global embrace, abolishing both space and time as far as
+					man — the technological simulation of consciousness . . . Whether the extensions of
+					consciousness . . . will be ‘a good thing’ is a question that admits of a wide solution.” <span class = "label" style = "font-style: normal;">(McLuhan 1964, 11)</span>
+				</p>
+				<br>
 			</div>
-			<div id = "location">
-				<p><strong>Location</strong><br>It is located in Cameroon, Bui Division, Nkum Sub-Division, Kumbo East Health District and in the village of Tatum, 24km from Kumbo town with an area population of 12,667 inhabitants.</p>
+		</div>
+		<div class = "essay-container">
+			<div id = "essay">
+				<p>
+					The tools that we make to aid and/or expand our sensory abilities typically mimic the human sensory organs themselves. Current developments in virtual reality technology use the human visual system as a model to create ‘human eye resolution’ screens.<span class = "footnote">1</span> Sensors track the user’s gaze and increase the screen resolution at the point of focus, mimicking the machinations of the human eye.<span class = "footnote">2</span> Theoretically, if the technology can perfectly match the physical correlative, the virtual world will appear as real as ‘reality,’ and the user will feel as though their physical body is present in the virtual space. In this perfect iteration, human and technology become seamlessly linked in a dynamic loop of input and output that is calibrated to the exact physicality of the subject and the minute specifications of the technology. In <span style = "font-style: italic;">Understanding Media: The Extensions of Man</span>, media theorist Marshall McLuhan argued that technology and the physical body were inherently connected. Rather than being seen as a ‘detachable object’<span class = "footnote">3</span>, a separate entity from the human subject, McLuhan writes of technology as an extension, a multiplication, a progression, and a transformation of the ‘psychic and social complex.’<span class = "footnote">4</span> The individual body and the collective culture being both augmented and mutated by the tools we create.<span class = "footnote">5</span> 
+				</p>
+				<br>
+			</div>	
+			<div id = "sources" class = "slow-scroll">
+				<img onmouseover="imageFocus('image-1')" onmouseout = "unFocus('image-1')" class = "source-image hidden" alt = "vr-glasses" src = "varjo.jpg">
+				<a class = "label source-image note-link hidden" target = "_blank" href = "https://varjo.com/">Varjo VR headsets website</a>
+				<img onmouseover="imageFocus('image-2')" onmouseout = "unFocus('image-2')" class = "source-image hidden" alt = "vr-diagram" src = "vr-diagram.png">
 			</div>
-		</section>
-		<section class = "margin margin-top-bottom">
-			<h1>General Statistics 2020 and 2021</h1>
-			<div class = "flex margin-top">
-				<img id = "bar" alt = "bar graph" src = "Images/bar_general.svg">
-				<div class = "category">
-					<button class = "button selected" onmouseover = "loadImage(this, 'Images/bar_general.svg', 'Images/line_general.svg')">General consultation</button>
-					<button class = "button" onmouseover = "loadImage(this, 'Images/bar_laboratory.svg', 'Images/line_laboratory.svg')">Laboratory</button>
-					<button class = "button border-bottom keepborder" onmouseover = "loadImage(this, 'Images/bar_mother.svg', 'Images/line_mother.svg')">Mother & child Welfare clinic</button>
-
-					<div class = "break"></div>
-
-					<button class = "button" onmouseover = "loadImage(this, 'Images/bar_admissions.svg', 'Images/line_admissions.svg')">Admissions</button>
-					<button class = "button" class = "border-bottom" onmouseover = "loadImage(this, 'Images/bar_antenatal.svg', 'Images/line_antenatal.svg')">Antenatal care</button>
-					<button class = "button" onmouseover = "loadImage(this, 'Images/bar_maternity.svg', 'Images/line_maternity.svg')">Maternity / Delivery</button>
-					<button class = "button" onmouseover = "loadImage(this, 'Images/bar_operation.svg', 'Images/line_operation.svg')">Minor/major operations</button>
-					<button class = "button" onmouseover = "loadImage(this, 'Images/bar_ultrasound.svg', 'Images/line_ultrasound.svg')">Ultrasound</button>
-					<button class = "button" onmouseover = "loadImage(this, 'Images/bar_circumcision.svg', 'Images/line_circumcision.svg')">Circumcisions</button>
-					<button class = "button border-bottom keepborder" onmouseover = "loadImage(this, 'Images/bar_refferal.svg', 'Images/line_refferal.svg')">Refferals</button>
-
-					<div class = "break"></div>
-
-					<button class = "button" onmouseover = "loadImage(this, 'Images/bar_deaths.svg', 'Images/line_deaths.svg')">Deaths</button>
-					<button class = "button border-bottom keepborder" onmouseover = "loadImage(this, 'Images/bar_stillbirth.svg', 'Images/line_stillbirth.svg')">Still birth</button>
-
-				</div>
-				<img id = "line" alt = "line graph" src = "Images/line_general.svg">
+			<img id = "image-1" class = "source-image-selected" alt = "vr-glasses" src = "varjo.jpg">
+			<img id = "image-2" class = "source-image-selected" alt = "vr-diagram" src = "vr-diagram.png">
+		</div>
+		<div class = "essay-container">
+			<div id = "essay">
+				<p>
+					Though McLuhan was writing before the emergence of the Internet, in one of his most prescient works, <span style = "font-style: italic;">The Gutenberg Galaxy</span> (1962), he speculates about the next chapter of human existence, the so called “new electronic age.” In this final of technological development, McLuhan imagines a “Global village,” a place in which technology disseminates knowledge to everyone, everywhere.<span class = "footnote">6</span> In this space, where information is accessible in its totality, the boundaries of consciousness become dissolved and technology, in its final stage, becomes the very “extension of consciousness”.<span class = "footnote">7</span> Although quite utopian in its affect, reading this now can feel a bit uncanny. The Internet acts precisely as this global network of information, and to echo McLuhan’s thinking, it can be understood as a mimicry, an augmentation, and a connection of and between our physical forms.
+					</p>	
+					<br>	
 			</div>
-		</section>
-		<section class = "green-background">
-			<div class = "margin">
-				<h1 style = "text-align: center;">Prevailing Diseases 2021</h1>
-				<div class = "grid margin-top">
-					<div id = "donut-container-container">
-						<div id = "donut-container">
-							<div id = "donut-title"><p>2021</p></div>
-							<canvas id="donut" alt = "doughnut chart"></canvas>
-						</div>
-					</div>
-					<div style = "margin-bottom: 4vw;" class = "disease-container tinypadding">
-						<img id = "htn" alt = "disease" src = "Images/HTN.svg">
-						<p><span style = "font-weight: 600;">Hypertension</span> remains the most prevalent health condition here in Tatum and rates of diagnosis have remained steady throughout the year. Causes are associated with poor nutrition, stress, lack of proper finances to purchase medications, and an aging population that has fled from socio-political crisis.</p>
-					</div>
-					<div class = "disease-container tinypadding">
-						<img id = "urti" alt = "disease" src = "Images/URTI.svg">
-						<p><span style = "font-weight: 600;">Upper Respiratory Tract Infection</span><br>April had the highest incidence of URTI with 31 total cases reported. In July, this number drastically reduced to 5 cases, followed by an upward trend to 19 cases in August and 20 cases in September. This increase is associated with the colder climate.</p>
-					</div>
-					<div class = "disease-container align-self">
-						<img id = "malaria" alt = "disease" src = "Images/Malaria.svg">
-						<p><span style = "font-weight: 600;">Malaria</span><br>February had the highest incidence of malaria with 45 total cases reported. However, following a  sensitization campaign lead by a group of community health workers, this number reduced dramatically to 15 cases in April. By September, only 11 cases were reported.</p>
-					</div>
-					<div class = "disease-container align-self">
-						<img id = "ge" alt = "disease" src = "Images/GE.svg">
-						<p><span style = "font-weight: 600;">Gastroenteritis</span><br>From January to March, gastroenteritis had a stable rate of diagnosis. A sudden increase in incidence was observed from 4 cases in March to 20 in April. This was followed by a steady decrease from 17 cases in May to 5 in August. Cases of gastroenteritis are typically associated with norovirus and bacterial infection as well as parasitic infection.</p>
-					</div>
-						<div class = "disease-container align-self">
-						<img id = "pud" alt = "disease" src = "Images/PUD.svg">
-						<p><span style = "font-weight: 600;">Peptic Ulcer Disease (PUD)</span> remains one of the most frequently occurring diagnoses in Tatum. The highest rate of diagnosis was seen in March with 14 cases reported while the lowest was seen in February with 4.</p>
-					</div>
-				</div>
+			<div id = "sources" class = "slow-scroll">
+				<a class = "label source-image note-link hidden" target = "_blank" href = "https://en.wikipedia.org/wiki/Global_village">More info on the Global village</a>
 			</div>
-		</section>
-		<section class = "margin padding-top-bottom">
-			<h1>Facilities and Services</h1>
-			<ul class = "grid-services margin-top">
-				<li>Maternity Department</li>
-				<li>In Patient Department</li>
-				<li>Out Patient Department</li>
-				<li>Laboratory</li>
-				<li>Information on Personal Protective  Equipment for Covid 19</li>
-				<li>Ultrasonography</li>
-				<li>Rehabilitation</li>
-				<li>Attending to Internally Displaced  Persons</li>
-				<li>Pharmacy / Dispensary</li>
-			</ul>
-		</section>
-		<section class = "green-background">
-			<div class = "margin padding-top-bottom">
-				<h1>Engage</h1>
-				<div class = "flex-2 padding-top">
-					<p id = "engage-text">Assitance has been instrumental in sustaining the services provided by St. Pius X. Financing health care workers, supporting the poor and vulnerable, and paying for renovations has been difficult during the Covid-19 pandemic. Financial support is still hugely needed to help settle debts for the procurement of medications and materials needed in daily care, to settle bills of patients with poor financial possessions, and for general renovation work. Moreover, the health centre is in need of a monitor for patients in critical condition, as well as drip stands and crutches. They also hope to further equip the canteen so that it can keep up with the basic needs of patients and the indigenous population.</p>
-					<img id = "photo" alt = "photo of health centre" src = "Images/photo.png">
-				</div>
-				<a class = "get-involved" target="_blank" href = "https://www.tssfcameroonhealth.de/contact/">
-					<h2 class = "pointer">Get involved</h2>
-					<img class = "icon-2" alt = "website" src = "Images/open.svg">
-				</a>
+		</div>
+		<div class = "essay-container">
+			<div id = "essay">
+				<p>
+					In 1924, Freud wrote a similarly prescient and intriguing essay titled, <span style = "font-style: italic;">A Note upon the Mystic Writing-Pad</span>. In this essay, Freud discusses a new technological invention, the Mystic Writing Pad, a rather simple device comparable to the Magic Slate that allows a user to write on a wax slab while leaving traces of what was written before underneath its covering. Freud saw in this device a metaphor for the human memory system. “If we imagine one hand writing upon the surface of the Mystic Writing Pad while another periodically raises its covering sheet from the wax slab, we shall have a concrete representation of the way in which I tried to picture the functioning of the perceptual apparatus of our mind”.<span class = "footnote">8</span> In Freud’s thinking, this apparatus consists of two layers. The conscious and the unconscious. The space of perception, which ‘writes’ on the pad, and memory, which contains traces of what has been written.<span class = "footnote">9</span> In his words, “an unlimited receptive capacity for new perceptions and...permanent – even though not unalterable – memory traces of them”.<span class = "footnote">10</span> <span class = "footnote">11</span> While the two systems are linked, the flow of information is not constant, rather, it is as though “the unconscious stretches out feelers, through the medium of the (perception) system...towards the external world”.<span class = "footnote">12</span> It is a moment in which perception and memory come together, something like a virtual space.<span class = "footnote">13</span> An archive of our past experiences that is latent until triggered with the right combination of inputs. 
+					</p>	
+					<br>	
 			</div>
-		</section>
-		<footer class = "green-background">
-			<div class = "flex-2 margin">
-				<a class = "flex-2" target="_blank" href = "https://www.tssfcameroonhealth.de/">
-					<img class = "icon pointer" alt = "website" src = "Images/website.svg">
-					<p class = "pointer">www.tssfcameroonhealth.de</p>
-				</a>
-				<div class = "flex-2">
-					<img class = "icon" alt = "phone number" src = "Images/phone.svg">
-					<p>00237 683 77 77 38</p>
-				</div>
-				<a target="_blank" href  = "mailto:tssfhealthdirector@gmail.com" class = "flex-2">
-					<img class = "icon pointer" alt = "email" src = "Images/email.svg">
-					<p class = "pointer">tssfhealthdirector@gmail.com</p>
-				</a>
-				<div class = "flex-2">
-					<img class = "icon" alt = "P.O box" src = "Images/location.svg">
-					<p>P.O Box 8 Kumbo, Cameroon</p>
-				</div>
+			<div id = "sources" class = "slow-scroll">
+				<img onmouseover="imageFocus('image-3')" onmouseout = "unFocus('image-3')" class = "source-image hidden" alt = "magic-slate" src = "magic-slate.jpg">
+				<a class = "label source-image note-link hidden" target = "_blank" href = "https://bokcenter.harvard.edu/how-memory-works">How memory works</a>
 			</div>
-		</footer>
-	</main>
+			<img id = "image-3" class = "source-image-selected" alt = "magic-slate" src = "magic-slate.jpg">
+		</div>
+		<div class = "essay-container">
+			<div id = "essay">
+				<p>
+					What would Freud have made of today’s computers? Compared to the Mystic Pad, they are practically the perfect mnemonic tool. They are a simulacrum of the human memory system with the ability to encode, store, and retrieve information ‘infinitely’. The ‘traces’ of input are saved as data, preserved (nearly) completely intact rather than as mere impressions. Layers of storage systems are organized vertically and laterally, with memories that stay on the surface or are lodged deeper on magnetic disks and tapes.<span class = "footnote">14</span> And what about the Internet? It is something like a shared memory bank, an archive, and in the language of McLuhan, an extension of the collective conscious. The home of the virtual space, the unconscious, the vast sea of all data stored in massive data centers, and the collective perception system with its blank pad always ready for new input. The technology of the mind is mirrored in the technology of the computer, each extending one to the other in an infinite feedback loop, transforming both our collective memory and the contents of the digital space and its physical materials.<span class = "footnote">15</span>
+					</p>	
+					<br>	
+			</div>
+			<div id = "sources" class = "slow-scroll">
+				<img onmouseover="imageFocus('image-4')" onmouseout = "unFocus('image-4')" class = "source-image hidden" alt = "magnetic-disk" src = "magnetic-disk.jpg">
+				<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.tutorialspoint.com/what-is-memory-hierarchy">More info on computer memory</a>
+				<img onmouseover="imageFocus('image-6')" onmouseout = "unFocus('image-6')" class = "source-image hidden" alt = "data-center" src = "data-center.jpg">
+				<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.youtube.com/watch?v=kfvbCggY_nI">What is a data center?</a>
+			</div>
+			<img id = "image-4" class = "source-image-selected" alt = "magnetic-disk" src = "magnetic-disk.jpg">
+			<img id = "image-6" class = "source-image-selected" alt = "data-center" src = "data-center.jpg">
+		</div>
+		<div id = "footnote-container">
+			<div class = "label">1. LaValle, 2020, p. 38-63.</div>	
+			<div class = "label">2. Ibid.</div>	
+			<div class = "label">3. Harvey, 2006, p. 340.</div>	
+			<div class = "label">4. McLuhan, 1964.</div>	
+			<div class = "label">5. Harvey, 2006, p. 333.</div>	
+			<div class = "label">6. McLuhan, 1962.</div>	
+			<div class = "label">7. McLuhan, 1964.</div>	
+			<div class = "label">8. Freud, 1925, p. 2.</div>	
+			<div class = "label">9. Ibid.</div>	
+			<div class = "label">10. Freud, 1925, p. 2.</div>	
+			<div class = "label">11. It is important to note that this is only Freud’s hypothesis about the structure of the human memory system, modern developments in neuroscience and psychology have revealed many more nuanced layers of complexity to the workings of memory and there is still much to be discovered <a class = "note-link" target = "_blank" href = "https://bokcenter.harvard.edu/how-memory-works">https://bokcenter.harvard.edu/how-memory-works</a></div>	
+			<div class = "label">12. Freud, 1920, p. 153.</div>	
+			<div class = "label">13. Elsaesser, 2009.</div>	
+			<div class = "label">14. <a class = "note-link" target = "_blank" href = "https://www.tutorialspoint.com/what-is-auxiliary-memory">https://www.tutorialspoint.com/what-is-auxiliary-memory</a></div>	
+			<div class = "label">15. It is important to consider the material manifestations of data  ie. data centers, servers, hard drives.</div>	
+		</div>		
+	</div>
+	<footer style = "justify-content: flex-end;">
+		<div class = "footer-flex">
+			<a href = "02.html"><div class = "label next">Next</div></a>
+			<a href = "02.html"><img style = "margin-left: 1em;" class = "arrow" alt = "next-page-arrow" src = "arrow.svg"></a>
+		</div>
+	</footer>
+	<div id = "info">
+		<div>©Veronica Lorenzini 2022</div>
+		<div>Designer's Archive Assignment</div>	
+		<div style = "font-weight: 400;">Seminar I: Critical Practice</div>
+	</div>
 </body>
-
 <script>
-	var values = [116, 93, 233, 169, 140];
-	var colors = ["#69A0C2", "#C8AACA", "#F4A582", "#B1A59A", "#BCC3CA"];
-	var labels = ['116', '93', '233', '169', '140'];
-
-
-	var inView = false;
-
-	function isScrolledIntoView(elem) {
-    	var docViewTop = $(window).scrollTop();
-    	var docViewBottom = docViewTop + $(window).height();
-
-    	var elemTop = $(elem).offset().top;
-    	var elemBottom = elemTop + $(elem).height();
-
-    	return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
-	}
-
-	$(window).scroll(function() {
-   		if (isScrolledIntoView('#donut')) {
-        	if (inView) { return; }
-        	inView = true;
-        	new Chart("donut", {
-  				type: "doughnut",
-  				data: {
-    				datasets: [{
-      					backgroundColor: colors,
-      					data: values,
-      					borderColor: '#E8F0EC',
-      					borderWidth: 4,
-      					hoverOffset: 0,
-      					hoverBorderColor: '#E8F0EC'
-    				}]
-  				},
-  				options: {
-  					responsive: true,
-  					events: [],
-  					plugins: {
-  						datalabels: {
-  							color: 'black',
-  							font: function(context) {
-          						var width = context.chart.width;
-          						var size = Math.round(width / 18);
-        						return {
-          							size: size
-          						};
-        					},
-  						},
-  					}
-  				},
-  				plugins: [ChartDataLabels]
-			});
-    	} else {
-        	inView = false;  
-    	}
+	window.addEventListener('scroll', function() {
+		let elements = document.getElementsByClassName('scroll');
+		let elements2 = document.getElementsByClassName('slow-scroll');
+		let scrolled = window.pageYOffset; 
+		let rate = scrolled * 0.06;
+		let rate2 = scrolled * 0.03;
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].style.transform = 'translate3d(0px, '+rate+'px, 0px)';
+		}
+		for (let j = 0; j < elements2.length; j++) {
+			elements2[j].style.transform = 'translate3d(0px, '+rate2+'px, 0px)';
+		}
 	});
 
-	var width = document.getElementById('donut').offsetWidth;
-	var size = Math.round(width / 20);
-	console.log(size);
-	document.getElementById('donut-title').style.fontSize = (size.toString() + 'px');
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			console.log(entry);
+			if (entry.isIntersecting) {
+				entry.target.classList.add('show');
+			}
+		});
+	});
 
+	const hiddenElements = document.querySelectorAll('.hidden');
+	hiddenElements.forEach((el) => observer.observe(el));
 
-	function loadImage(element, src1, src2) {
-		var i;
-		var buttons = document.getElementsByClassName('button');
-		for (i = 0; i < buttons.length; i++) {
-			buttons[i].style.borderTop = "1px solid #E8F0EC";
-			buttons[i].style.borderBottom = "none";
-			buttons[i].style.fontWeight = "400";
-			buttons[i].style.fontSize = "14px";
-		}
-		var keep = document.getElementsByClassName('keepborder');
-		for (i = 0; i < keep.length; i++) {
-			keep[i].style.borderBottom = "1px solid #E8F0EC";
-		}
-		element.style.fontSize = "13.7px";
-		element.style.fontWeight = "600";
-		element.style.borderTop = "1px solid black";
-		element.style.borderBottom = "1px solid black";
-		document.getElementById('bar').src = src1;
-		document.getElementById('line').src = src2;
+	function imageFocus(id) {
+		let image = document.getElementById(id);
+		image.style.opacity = 1;
+		image.style.zIndex = 100;
+	}
+	function unFocus(id) {
+		let image = document.getElementById(id);
+		image.style.opacity = 0;
+		image.style.zIndex = -1;
 	}
 </script>
 </html>
