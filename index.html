@@ -1,200 +1,1021 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
-	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1"/>
-	<meta charset = "utf-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" href="https://use.typekit.net/nym6teo.css">
-	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-	<link rel="manifest" href="site.webmanifest">
-	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
-	<meta name="msapplication-TileColor" content="#da532c">
-	<meta name="theme-color" content="#ffffff">
-	<title>Infinite Archive</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/lzc7udu.css">
+    <title>Pitchfork Reviews</title>
+    <style>
+        * {
+	        box-sizing: border-box;
+	        cursor: default;
+	        margin: 0;
+        }
+        html,body {
+            font-family: "obviously", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background-color: #1A1A1A;
+            color: #1A1A1A;
+            font-size: 12px;
+            margin: 0px;
+        }
+        h1 {
+            font-family: "obviously-wide", sans-serif;
+            font-weight: 400;
+            font-size: 30px;   
+            margin-block-start: -0.4em;
+            margin-block-end: 0em;
+        }
+        h2 {
+            font-family: "obviously-wide", sans-serif;
+            font-weight: 700;
+            font-size: 12px;   
+            margin-block-start: 0em;
+            margin-block-end: -0.3em;
+        }
+        h3 {
+            font-weight: 700;  
+            font-size: 16px;
+            margin-block-start: 0em;
+            margin-block-end: 0em;    
+        }
+        .data-title {
+            font-weight: 700;  
+            font-size: 14px;
+            margin-block-start: 0em;
+            margin-block-end: 0em;
+            color: #D73241;
+        }
+        .score-title {
+            position: absolute;
+            top: 24px;
+            left: 4px;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+        }
+        .year-title-container {
+            position: absolute;
+            width: 100%;
+            height: 29.5px;
+            bottom: 0;
+            background-color: #1A1A1A;
+            border-top: 1.25px solid #F2F2F2;
+        }
+        .year-title {
+            position: absolute;
+            bottom: 8px;
+            left: 0px;
+        }
+        .axis-label {
+            font-size: 8px;
+            margin-block-start: 0em;
+            margin-block-end: 0em;
+            fill: #D73241;
+        }
+        .axis-line {
+            stroke: #F2F2F2;
+            stroke-width: 1.25;
+        }
+        .data-label { 
+            font-weight: 700;
+            font-size: 12px;
+            margin-block-start: 0em;
+            margin-block-end: 0em;
+            fill: #D73241;
+        }
+        a {
+            color: #1A1A1A;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .padding {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 40px;
+            padding-right: 30px;
+        }
+        section {
+            width: 100vw;
+            height: 100vh;
+            min-width: 100vw;
+            min-height: 100vh;
+        }
+        .main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 82vw;
+            min-height: 100vh;
+            background-color: #1A1A1A;     
+        }
+        header {
+            width: 100%;
+            background-color: #1A1A1A;
+            color: #F2F2F2;
+        }
+        .select-container {
+            position: absolute;
+            right: 16px;
+            top: 22px;
+            display: flex;
+            flex-direction: row;
+            color: #F2F2F2;
+            width: 160px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .select-label {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        select {
+            color: #F2F2F2;
+            background-color: #1A1A1A;
+            border: none;
+            width: 100px;
+            cursor: pointer;
+        }
+        .sidebar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 16vw;
+            min-height: 100vh;
+            background-color: #D73241;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            width: 100%;
+            padding-top: 20px;
+        }
+        .filter-button {
+            width: 14px;
+            height: 14px;
+            border: 1.25px solid #1A1A1A;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: 4px;
+            margin-right: 12px;
+        }
+        .divider {
+            height: 15px;
+            border-bottom: 1.25px solid #1A1A1A;
+            width: 100%;
+        }
+        .canvas {
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: -10px;
+            overflow: visible;
+        }
+        .show {
+            background-color: #1A1A1A;
+        }
+        .hide {
+            background-color: #D73241;
+        }
+        #tooltip {
+            position: absolute;
+            color: #F2F2F2;
+            white-space: pre;
+            background-color: #1A1A1A;
+            padding: 5px;
+            padding-bottom: 8px;
+        }
+        #guide-container {
+            padding-top: 18px;
+            max-height: 270px;
+            overflow-y: auto;
+            padding-bottom: 50px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16vw;
+            background-color: #F2F2F2;
+        }
+        .hide-guide {
+            height: 80px;
+        }
+        .show-guide {
+            height: 270px;
+            -webkit-animation: fadeIn 0.5s;
+            animation: fadeIn 0.5s
+        }
+        @-webkit-keyframes fadeIn {
+            from {height: 80px;}
+            to {height: 270px;}
+        }
+        @keyframes fadeIn {
+            from {height: 80px;}
+            to {height: 270px;}
+        }
+        .key-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .key-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .genre-container {
+            padding-top: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .genre-circle {
+            width: 12px;
+            height: 12px;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .genre-label {
+            margin-right: 10px;
+            font-size: 10px;
+        }
+        .guide-title {
+            font-weight: 700;
+            font-size: 12px;
+        }
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%
+        }
+        .title-container .rotate-arrow {
+            transform: rotate(180deg);
+            -webkit-animation: rotateIn 0.5s;
+            animation: rotateIn 0.5s
+        }
+        @-webkit-keyframes rotateIn {
+            from {transform: rotate(0deg);}
+            to {transform: rotate(180deg);}
+        }
+        @keyframes rotateIn {
+            from {transform: rotate(0deg);}
+            to {transform: rotate(180deg);}
+        }
+        img {
+            cursor: pointer;
+            width: 12px;
+        }
+        .popout {
+            cursor: pointer;
+            border: none;
+        }
+
+    </style>
 </head>
 <body>
-	<div class = "full-page">
-		<div class = "title">
-			<h1 style = "font-style: normal;">Infinite Archive</h1>
-			<h2>The Body-Machine Connection and Digital Memory</h2>	
-		</div>
-		<img class = "scroll" id = "carrot" alt = "arrow-down" src = "carrot.svg">
-	</div>
-	<div id = "main-content-container">
-		<nav>
-			<a href = "index.html" class = "nav-selected">Extensions of the body</a>
-			<a href = "02.html">Visualizing the virtual archive</a>
-			<a href = "03.html">The archive of the everyday</a>
-			<a href = "04.html">The infinite archive</a>
-			<a href = "references.html">Works Cited</a>
-		</nav>
-		<div class = "essay-container">
-			<div id = "essay">
-				<div class = "section-number">01.</div>
-				<h1>Extensions of the body</h1>
-				<p id = "quote">
-					“Today, after more than a century of electric technology, we have extended our central
-					nervous system itself in a global embrace, abolishing both space and time as far as
-					man — the technological simulation of consciousness . . . Whether the extensions of
-					consciousness . . . will be ‘a good thing’ is a question that admits of a wide solution.” <span class = "label" style = "font-style: normal;">(McLuhan 1964, 11)</span>
-				</p>
-				<br>
-			</div>
-		</div>
-		<div class = "essay-container">
-			<div id = "essay">
-				<p>
-					The tools that we make to aid and/or expand our sensory abilities typically mimic the human sensory organs themselves. Current developments in virtual reality technology use the human visual system as a model to create ‘human eye resolution’ screens.<span class = "footnote">1</span> Sensors track the user’s gaze and increase the screen resolution at the point of focus, mimicking the machinations of the human eye.<span class = "footnote">2</span> Theoretically, if the technology can perfectly match the physical correlative, the virtual world will appear as real as ‘reality,’ and the user will feel as though their physical body is present in the virtual space. In this perfect iteration, human and technology become seamlessly linked in a dynamic loop of input and output that is calibrated to the exact physicality of the subject and the minute specifications of the technology. In <span style = "font-style: italic;">Understanding Media: The Extensions of Man</span>, media theorist Marshall McLuhan argued that technology and the physical body were inherently connected. Rather than being seen as a ‘detachable object’<span class = "footnote">3</span>, a separate entity from the human subject, McLuhan writes of technology as an extension, a multiplication, a progression, and a transformation of the ‘psychic and social complex.’<span class = "footnote">4</span> The individual body and the collective culture being both augmented and mutated by the tools we create.<span class = "footnote">5</span> 
-				</p>
-				<br>
-			</div>	
-			<div id = "sources" class = "slow-scroll">
-				<div class = "sources-flex">
-					<img onmouseover="imageFocus('image-1')" onmouseout = "unFocus('image-1')" class = "source-image hidden" alt = "vr-glasses" src = "varjo.jpg">	
-					<p class = "caption hidden">Varjo VR-1 human eye resolution headset</p>
-				</div>
-				<div class = "sources-flex">
-					<img onmouseover="imageFocus('image-2')" onmouseout = "unFocus('image-2')" class = "source-image hidden" alt = "optical-system" src = "eye.png">
-					<p class = "caption hidden">Diagram of the human optical system</p>
-				</div>
-				<div class = "sources-flex">
-					<img onmouseover="imageFocus('image-3')" onmouseout = "unFocus('image-3')" class = "source-image hidden" alt = "vr-diagram" src = "vr-diagram.png">	
-					<p class = "caption hidden">Diagram of a VR feedback loop</p>	
-				</div>
-			</div>
-			<img id = "image-1" class = "source-image-selected" alt = "vr-glasses" src = "varjo.jpg">
-			<img id = "image-2" class = "source-image-selected" alt = "optical-system" src = "eye.png">
-			<img id = "image-3" class = "source-image-selected" alt = "vr-diagram" src = "vr-diagram.png">
-		</div>
-		<div class = "essay-container">
-			<div id = "essay">
-				<p>
-					Though McLuhan was writing before the emergence of the Internet, in one of his most prescient works, <span style = "font-style: italic;">The Gutenberg Galaxy</span> (1962), he speculates about the next chapter of human existence, the so called “new electronic age.” In this final of technological development, McLuhan imagines a “Global village,” a place in which technology disseminates knowledge to everyone, everywhere.<span class = "footnote">6</span> In this space, where information is accessible in its totality, the boundaries of consciousness become dissolved and technology, in its final stage, becomes the very “extension of consciousness”.<span class = "footnote">7</span> Although quite utopian in its affect, reading this now can feel a bit uncanny. The Internet acts precisely as this global network of information, and to echo McLuhan’s thinking, it can be understood as a mimicry, an augmentation, and a connection of and between our physical forms.
-					</p>	
-					<br>	
-			</div>
-			<div id = "sources" class = "slow-scroll">
-				<div class = "link-flex">
-					<a class = "label source-image note-link hidden" target = "_blank" href = "https://en.wikipedia.org/wiki/Global_village">More info on the Global village</a>
-					<img class = "tiny-arrow hidden" alt = "arrow" src = "arrow.svg">		
-				</div>
-			</div>
-		</div>
-		<div class = "essay-container">
-			<div id = "essay">
-				<p>
-					In 1924, Freud wrote a similarly prescient and intriguing essay titled, <span style = "font-style: italic;">A Note upon the Mystic Writing-Pad</span>. In this essay, Freud discusses a new technological invention, the Mystic Writing Pad, a rather simple device comparable to the Magic Slate that allows a user to write on a wax slab while leaving traces of what was written before underneath its covering. Freud saw in this device a metaphor for the human memory system. “If we imagine one hand writing upon the surface of the Mystic Writing Pad while another periodically raises its covering sheet from the wax slab, we shall have a concrete representation of the way in which I tried to picture the functioning of the perceptual apparatus of our mind”.<span class = "footnote">8</span> In Freud’s thinking, this apparatus consists of two layers. The conscious and the unconscious. The space of perception, which ‘writes’ on the pad, and memory, which contains traces of what has been written.<span class = "footnote">9</span> In his words, “an unlimited receptive capacity for new perceptions and...permanent – even though not unalterable – memory traces of them”.<span class = "footnote">10</span> <span class = "footnote">11</span> While the two systems are linked, the flow of information is not constant, rather, it is as though “the unconscious stretches out feelers, through the medium of the (perception) system...towards the external world”.<span class = "footnote">12</span> It is a moment in which perception and memory come together, something like a virtual space.<span class = "footnote">13</span> An archive of our past experiences that is latent until triggered with the right combination of inputs. 
-					</p>	
-					<br>	
-			</div>
-			<div id = "sources" class = "slow-scroll">
-				<div class = "sources-flex">
-					<img onmouseover="imageFocus('image-4')" onmouseout = "unFocus('image-4')" class = "source-image hidden" alt = "magic-slate" src = "magic-slate.jpg">
-					<p class = "caption hidden">Magic Slate children's toy</p>	
-				</div>
-				<div class = "link-flex">
-					<a class = "label source-image note-link hidden" target = "_blank" href = "https://bokcenter.harvard.edu/how-memory-works">How our memory system works</a>
-					<img class = "tiny-arrow hidden" alt = "arrow" src = "arrow.svg">		
-				</div>
-			</div>
-			<img id = "image-4" class = "source-image-selected" alt = "magic-slate" src = "magic-slate.jpg">
-		</div>
-		<div class = "essay-container">
-			<div id = "essay">
-				<p>
-					What would Freud have made of today’s computers? Compared to the Mystic Pad, they are practically the perfect mnemonic tool. They are a simulacrum of the human memory system with the ability to encode, store, and retrieve information ‘infinitely’. The ‘traces’ of input are saved as data, preserved (nearly) completely intact rather than as mere impressions. Layers of storage systems are organized vertically and laterally, with memories that stay on the surface or are lodged deeper on magnetic disks and tapes.<span class = "footnote">14</span> And what about the Internet? It is something like a shared memory bank, an archive, and in the language of McLuhan, an extension of the collective conscious. The home of the virtual space, the unconscious, the vast sea of all data stored in massive data centers, and the collective perception system with its blank pad always ready for new input. The technology of the mind is mirrored in the technology of the computer, each extending one to the other in an infinite feedback loop, transforming both our collective memory and the contents of the digital space and its physical materials.<span class = "footnote">15</span>
-					</p>	
-					<br>	
-			</div>
-			<div id = "sources" class = "slow-scroll">
-				<div class = "sources-flex">
-					<img onmouseover="imageFocus('image-5')" onmouseout = "unFocus('image-5')" class = "source-image hidden" alt = "magnetic-disk" src = "magnetic-disk.jpg">
-					<p class = "caption hidden">Diagram of a magnetic disk</p>	
-				</div>
-				<div class = "link-flex">
-					<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.tutorialspoint.com/what-is-memory-hierarchy">More info on computer memory</a>
-					<img class = "tiny-arrow hidden" alt = "arrow" src = "arrow.svg">		
-				</div>
-				<div class = "sources-flex">
-					<img onmouseover="imageFocus('image-6')" onmouseout = "unFocus('image-6')" class = "source-image hidden" alt = "data-center" src = "data-center.jpg">
-					<p class = "caption hidden">Servers in a data center</p>	
-				</div>
-				<div class = "link-flex">
-					<a class = "label source-image note-link hidden" target = "_blank" href = "https://www.youtube.com/watch?v=kfvbCggY_nI">What is a data center?</a>
-					<img class = "tiny-arrow hidden" alt = "arrow" src = "arrow.svg">		
-				</div>
-			</div>
-			<img id = "image-5" class = "source-image-selected" alt = "magnetic-disk" src = "magnetic-disk.jpg">
-			<img id = "image-6" class = "source-image-selected" alt = "data-center" src = "data-center.jpg">
-		</div>
-		<div id = "footnote-container">
-			<div class = "label">1. LaValle, 2020, p. 38-63.</div>	
-			<div class = "label">2. Ibid.</div>	
-			<div class = "label">3. Harvey, 2006, p. 340.</div>	
-			<div class = "label">4. McLuhan, 1964.</div>	
-			<div class = "label">5. Harvey, 2006, p. 333.</div>	
-			<div class = "label">6. McLuhan, 1962.</div>	
-			<div class = "label">7. McLuhan, 1964.</div>	
-			<div class = "label">8. Freud, 1925, p. 2.</div>	
-			<div class = "label">9. Ibid.</div>	
-			<div class = "label">10. Freud, 1925, p. 2.</div>	
-			<div class = "label">11. It is important to note that this is only Freud’s hypothesis about the structure of the human memory system, modern developments in neuroscience and psychology have revealed many more nuanced layers of complexity to the workings of memory and there is still much to be discovered <a class = "note-link" target = "_blank" href = "https://bokcenter.harvard.edu/how-memory-works">https://bokcenter.harvard.edu/how-memory-works</a></div>	
-			<div class = "label">12. Freud, 1920, p. 153.</div>	
-			<div class = "label">13. Elsaesser, 2009.</div>	
-			<div class = "label">14. <a class = "note-link" target = "_blank" href = "https://www.tutorialspoint.com/what-is-auxiliary-memory">https://www.tutorialspoint.com/what-is-auxiliary-memory</a></div>	
-			<div class = "label">15. It is important to consider the material manifestations of data  ie. data centers, servers, hard drives.</div>	
-		</div>		
-	</div>
-	<footer style = "justify-content: flex-end;">
-		<div class = "footer-flex">
-			<a href = "02.html"><div class = "label next">Next</div></a>
-			<a href = "02.html"><img style = "margin-left: 1em;" class = "arrow" alt = "next-page-arrow" src = "arrow.svg"></a>
-		</div>
-	</footer>
-	<div id = "info">
-		<div>©Veronica Lorenzini 2022</div>
-		<div>Designer's Archive Assignment</div>	
-		<div style = "font-weight: 400;">Seminar I: Critical Practice</div>
-	</div>
+    <section>
+        <div class = "main">
+            <header class = "padding">
+                <h1>Pitchfork album reviews</h1>
+                <h3>1999 - 2017</h3>  
+            </header>
+            <div class = "select-container">
+                <div class = "select-label">Genre</div>
+                <select id="select-genre"></select>    
+            </div> 
+            <div class = "data-title score-title">SCORE</div>
+            <div class = "svg"></div>
+        </div>    
+        <div class = "sidebar">
+            <div style = "padding-left: 16px; padding-right: 16px;" class = "padding">
+                <h2>Filter</h2>
+                <div class = "divider"></div>
+                <div class = "button-container">
+                    <button class = "filter-button hide" id = "best-button"></button>
+                    <p class = "button-label">Best New Music</p>
+                </div>
+                <div class = "button-container">
+                    <button class = "filter-button hide" id = "rollingstone-button"></button>
+                    <p class = "button-label">Rolling Stone <a href = "https://www.rollingstone.com/music/music-lists/best-albums-of-all-time-1062063/" target="_blank">500 Greatest Albums of All Time</a></p>
+                </div>
+                <div class = "button-container">
+                    <button class = "filter-button hide" id = "long-button"></button>
+                    <p class = "button-label">Long reviews</p>
+                </div>
+                <div class = "button-container">
+                    <button class = "filter-button hide" id = "short-button"></button>
+                    <p class = "button-label">Short reviews</p>
+                </div>
+                <h2 style = "margin-top: 30px">Highlight</h2>
+                <div class = "divider"></div>
+                <div class = "button-container">
+                    <button class = "filter-button hide" id = "longest-button"></button>
+                    <p class = "button-label">The longest review</p>
+                </div>
+                <div class = "button-container">
+                    <button class = "filter-button hide" id = "shortest-button"></button>
+                    <p class = "button-label">The shortest review</p>
+                </div>
+
+                <div style = "padding-left: 16px; padding-right: 16px;" class = "hide-guide" id = "guide-container">
+                    <div class = "title-container">
+                        <p class = "guide-title">Guide</p>    
+                        <button class = "popout" onclick = "popout()"><img id = "arrow" src = "arrow.svg" alt = "show-hide-popout"></button>
+                    </div>
+                    <div class = "key-container">
+                        <div class = "key-col">
+                            <div class = "genre-container">
+                                <div style = "background-color: #DA9428;" class = "genre-circle"></div>
+                                <p class = "genre-label">Rock</p>
+                            </div>
+                            <div class = "genre-container">
+                                <div style = "background-color: #1C96D6;" class = "genre-circle"></div>
+                                <p class = "genre-label">Rap</p>
+                            </div>
+                            <div class = "genre-container">
+                                <div style = "background-color: #FF80DF;" class = "genre-circle"></div>
+                                <p class = "genre-label">Pop/R&B</p>
+                            </div>
+                        </div>
+                        <div class = "key-col">
+                            <div class = "genre-container">
+                                <div style = "background-color: #318C8B;" class = "genre-circle"></div>
+                                <p class = "genre-label">Electronic</p>
+                            </div>
+                            <div class = "genre-container">
+                                <div style = "background-color: #9D5CCC;" class = "genre-circle"></div>
+                                <p class = "genre-label">Experimental</p>
+                            </div>
+                            <div class = "genre-container">
+                                <div style = "background-color: #E35B29;" class = "genre-circle"></div>
+                                <p class = "genre-label">Folk/Country</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class = "genre-label" style = "padding-top: 24px; opacity: 0.5;">
+                        *Hover and click on the x and y axes to filter and zoom
+                    </p>
+
+                </div>
+                
+            </div>
+            <div class = "year-title-container">
+                <div class = "data-title year-title">YEAR</div>     
+            </div>
+    
+        </div>   
+        
+    </section>
+    
+    <script>
+        function popout() {
+            var popup = document.getElementById("guide-container");
+            popup.classList.toggle("show-guide");
+            popup.classList.toggle("hide-guide");
+            var arrow = document.getElementById("arrow");
+            arrow.classList.toggle("rotate-arrow");
+        }
+
+        Promise.all([
+            d3.csv("./p4kreviews.csv"), 
+            d3.csv("./albumlist.csv"),
+        ]).then(function(data) {
+
+            function yearAmount(year, data) {
+                var array = data.filter(function(e) {
+                    return e.year === year
+                })
+                return array.length
+            }
+            function yearPosition(year, number, data) {
+                var array = data.filter(function(e) {
+                    return e.year === year
+                })
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].number === number) {
+                        return i
+                    }
+                }
+            }
+
+            //edit and filter data
+            var filteredData = data[0].map(function(row) {
+                row.score = parseFloat(row.score)
+                row.year = parseFloat(row.date.split(" ")[2])
+                row.month = row.date.split(" ")[0]
+                row.number = parseFloat(row.number)
+                row.reviewlength = row.review.split(" ").length 
+                row.albumartist = row.album + " " + row.artist
+                return row
+            }).filter(function(row) {
+                return row.genre === "Rock"
+                || row.genre === "Rap"
+                || row.genre === "Pop/R&B"
+                || row.genre === "Electronic"
+                || row.genre === "Experimental"
+                || row.genre === "Folk/Country"
+            })
+
+            var filteredCopy = filteredData
+            var filteredOtherCopy
+        
+            var width = window.innerWidth * 0.773
+            var height = window.innerHeight - 130
+            var margin = 20
+
+            //make canvas
+            var svg = d3.select(".svg")
+                .append("svg")
+                .attr("width", width + margin * 2)
+                .attr("height", height + margin * 2)
+                .classed("canvas", true)
+                .append("g")
+                .attr("transform", "translate(" + margin + "," + margin + ")")
+            
+            //scales    
+            var scaleX = d3.scaleLinear()
+                .domain([1999, 2017])
+                .range([margin/2, width - margin])
+
+            var scaleY = d3.scaleLinear()
+                .domain([0, 10])
+                .range([height - margin, margin/2])
+
+            var scaleYear = d3.scaleLinear()
+                .domain([1999, 2017])
+                .range([margin*1.7, width + margin/2])
+
+            var tooltip = d3.select("body")
+                .append("div")
+                .attr("id", "tooltip")
+                .style("visibility", "hidden")
+                .text("");
+
+            //draw function
+            function draw(dataset, yearWidth, newDraw, reset, highlight) {
+                svg.selectAll("circle")
+                    .data(dataset, function(d) {return d.number})
+                    .join(
+                        function(enter){ return enter
+                            .append("circle")
+                            .attr("r", 1.25)
+                            .attr("cx", function(d) {return margin/2 + scaleX(d.year) + ((yearWidth/yearAmount(d.year, dataset)) * yearPosition(d.year, d.number, dataset))}) 
+                            .attr("cy", function(d) {return scaleY(d.score)}) 
+                            .attr("opacity", 1)
+                            .attr("fill", function(d) {
+                                if(d.genre === "Rock") {
+                                    return "#DA9428"
+                                }
+                                if(d.genre === "Rap") {
+                                    return "#1C96D6"
+                                }
+                                if(d.genre === "Pop/R&B") {
+                                    return "#FF80DF"
+                                }
+                                if(d.genre === "Electronic") {
+                                    return "#318C8B"
+                                }
+                                if(d.genre === "Experimental") {
+                                    return "#9D5CCC"
+                                }
+                                if(d.genre === "Folk/Country") {
+                                    return "#E35B29"
+                                }
+                            })  
+                            .on("mouseover", function(d, i) {
+                                if (d3.select(this).attr("opacity") != "0.1") {
+                                    var album = i.album
+                                    var artist = i.artist
+                                    var score = i.score
+                                    var x = d3.select(this).attr("cx")
+                                    var y = d3.select(this).attr("cy")
+                                    d3.select("#tooltip")
+                                    .style("visibility", "visible")
+                                    .style("left", x + "px")
+                                    .style("top", y + "px")
+                                    .text(album + "\n" + artist + "\n" + score)
+                                    d3.select(this)
+                                    .transition()
+                                    .duration(100)
+                                    .attr("r", 5)  
+                                }
+                            })   
+                            .on("mouseout", function() {
+                                d3.select("#tooltip")
+                                .style("visibility", "hidden")
+                                d3.select(this)
+                                .transition()
+                                .attr("r", 1.25) 
+                                
+                            })      
+                        },
+                        function(update){ 
+                            if (newDraw) {
+                                return update 
+                                .transition()
+                                .attr("opacity", function() {
+                                    if (highlight) {
+                                        return 0.5
+                                    }
+                                    else {
+                                        return 1
+                                    }
+                                })
+                                .attr("cx", function(d) {
+                                    return margin + ((yearWidth/yearAmount(d.year, dataset)) * yearPosition(d.year, d.number, dataset))  
+                                })
+                                .attr("r", function(d) {
+                                    if (highlight) {
+                                        var album = d.album
+                                        var artist = d.artist
+                                        var score = d.score
+                                        var length = d.reviewlength
+                                        var x = margin + ((yearWidth/yearAmount(d.year, dataset)) * yearPosition(d.year, d.number, dataset))
+                                        var y = d3.select(this).attr("cy")
+                                        d3.select("#tooltip")
+                                        .style("visibility", "visible")
+                                        .style("left", x + "px")
+                                        .style("top", y + "px")
+                                        .text(album + "\n" + artist + "\n" + score + "\n" + length + " words")
+                                        return 10
+                                    }
+                                    else {
+                                        d3.select("#tooltip")
+                                        .style("visibility", "hidden")
+                                        return 1.25
+                                    }
+                                })
+                            }
+                            if (reset) {
+                                return update 
+                                .transition()
+                                .attr("opacity", function() {
+                                    if (highlight) {
+                                        return 0.5
+                                    }
+                                    else {
+                                        return 1
+                                    }
+                                })
+                                .attr("cx", function(d) {
+                                    return margin/2 + scaleX(d.year) + ((yearWidth/yearAmount(d.year, dataset)) * yearPosition(d.year, d.number, dataset))  
+                                }) 
+                                .attr("r", function(d) {
+                                    if (highlight) {
+                                        var album = d.album
+                                        var artist = d.artist
+                                        var score = d.score
+                                        var length = d.reviewlength
+                                        var x = margin/2 + scaleX(d.year) + ((yearWidth/yearAmount(d.year, dataset)) * yearPosition(d.year, d.number, dataset))
+                                        var y = d3.select(this).attr("cy")
+                                        d3.select("#tooltip")
+                                        .style("visibility", "visible")
+                                        .style("left", x + "px")
+                                        .style("top", y + "px")
+                                        .text(album + "\n" + artist + "\n" + score + "\n" + length + " words")
+                                        return 10
+                                    }
+                                    else {
+                                        d3.select("#tooltip")
+                                        .style("visibility", "hidden")
+                                        return 1.25
+                                    }
+                                })  
+                            }
+                            else {
+                                return update 
+                                .transition()
+                                .attr("opacity", function() {
+                                    if (highlight) {
+                                        return 0.5
+                                    }
+                                    else {
+                                        return 1
+                                    }
+                                })
+                                .attr("r", function(d) {
+                                    if (highlight) {
+                                        var album = d.album
+                                        var artist = d.artist
+                                        var score = d.score
+                                        var length = d.reviewlength
+                                        var x = d3.select(this).attr("cx")
+                                        var y = d3.select(this).attr("cy")
+                                        d3.select("#tooltip")
+                                        .style("visibility", "visible")
+                                        .style("left", x + "px")
+                                        .style("top", y + "px")
+                                        .text(album + "\n" + artist + "\n" + score + "\n" + length + " words")
+                                        return 10
+                                    }
+                                    else {
+                                        d3.select("#tooltip")
+                                        .style("visibility", "hidden")
+                                        return 1.25
+                                    }
+                                })   
+                            }
+                        },
+                        function(exit){ return exit
+                            .transition()
+                            .attr("opacity", 0.1)
+                            .attr("r", 1.25) 
+                        })
+            }
+
+            var filter1 = "All"
+            var filter2 = "All"
+            var filter3 = "All"
+            var filter4 = "All"
+            var yearWidth = width/19
+            var newDraw = false
+            var reset = false
+            var scoreFilter = false
+            var highlight = false
+
+            //initialize scatter plot
+            draw(filteredData, yearWidth, newDraw, reset, highlight)
+
+            //x axis lables
+            svg.selectAll("text") 
+                .data(filteredData)
+                .join("text")
+                .text(function(d) {return d.year})
+                .attr("y", height + 4)
+                .attr("x", function(d) {return scaleYear(d.year)})
+                .classed("x-axis", true)
+                .classed("axis-label", true)
+                .classed("clicked", false)
+                .on("mouseover", function() {
+                    if (!d3.select(this).classed("clicked")) {
+                        filter3 = parseFloat(d3.select(this).html())
+                        d3.select(this)
+                        .style("fill", "#F2F2F2")
+                        .style("font-weight", "700")
+                        .style("cursor", "pointer")
+                        filter(filter1, filter2, filter3, filter4)
+                    }
+                    else {
+                        d3.select(this)
+                        .style("fill", "#D73241")
+                    }
+                })
+                .on("mouseout", function() {
+                    if (!d3.select(this).classed("clicked")) {
+                        if (!newDraw) {
+                           filter3 = "All"
+                            d3.select(this)
+                            .style("fill", "#D73241")
+                            .style("font-weight", "400")
+                            filter(filter1, filter2, filter3, filter4)  
+                        }
+                    }
+                    else {
+                        d3.select(this)
+                        .style("fill", "#F2F2F2")
+                    }
+                })
+                .on("click", function() {
+                    if (!d3.select(this).classed("clicked")) { 
+                        var myYear = d3.select(this) 
+                        d3.select(this)
+                        .classed("clicked", true)
+                        filter3 = parseFloat(d3.select(this).html())
+                        filteredData = filteredData.filter(function(row) {
+                            return row.year === filter3
+                        })
+                        yearWidth = width + margin + margin/2
+                        newDraw = true
+                        filter(filter1, filter2, filter3, filter4)
+                        newDraw = false
+
+                        svg.selectAll('.x-axis').each(function(d, i) {
+                            if (parseFloat(d3.select(this).html()) != filter3) {
+                                d3.select(this)
+                                .attr("opacity", 0)
+                                .style("pointer-events", "none")
+                            }
+                            else {
+                                d3.select(this)
+                                .attr("opacity", 1)
+                                .style("pointer-events", "auto")
+                                .style("font-size", "10px")
+                                .attr("x", function(d) {return scaleYear(2008)})
+                            }
+                        })
+                        svg.selectAll("circle").each(function(d) {
+                            if (d.year != filter3) {
+                                d3.select(this)
+                                .style("visibility", "hidden") 
+                            }
+                        })
+                    }
+
+                    else {
+                        d3.select(this)
+                        .classed("clicked", false)
+                        .style("fill", "#D73241")
+                        filter3 = "All"
+                        filteredData = filteredCopy
+                        yearWidth = width/19
+                        newDraw = false
+                        reset = true
+                        filter(filter1, filter2, filter3, filter4)
+                        d3.selectAll("circle").each(function(d, i) {
+                            d3.select(this)
+                            .style("visibility", "visible")
+                            .attr("cx", function(d) {
+                                return margin/2 + scaleX(d.year) + ((yearWidth/yearAmount(d.year, filteredData)) * yearPosition(d.year, d.number, filteredData))  
+                            })
+                        })
+                        reset = false
+
+                        svg.selectAll('.x-axis').each(function(d, i) {
+                            d3.select(this)
+                            .attr("opacity", 1)
+                            .style("pointer-events", "auto")
+                            .style("font-size", "8px")
+                            .attr("x", function(d) {return scaleYear(d.year)})
+
+                        })
+                    }
+                })
+                
+            //y axis lables    
+            var scores = [0,1,2,3,4,5,6,7,8,9,10]
+            scores.forEach(function(e) {
+                svg.append("text")
+                .attr("text-anchor", "end")
+                .text(e)
+                .classed("data-label", true)
+                .classed("y-axis", true)
+                .attr("x", -8)
+                .attr("y", scaleY(e))
+                .classed("clicked", false)
+                .on("mouseover", function() {
+                    if (!d3.select(this).classed("clicked") && !scoreFilter) {
+                        filter4 = parseFloat(d3.select(this).html())
+                        d3.select(this)
+                        .style("fill", "#F2F2F2")
+                        .style("cursor", "pointer")
+                        filter(filter1, filter2, filter3, filter4) 
+                    }
+                    else {
+                        if (!d3.select(this).classed("clicked") && scoreFilter) {
+                            d3.select(this)
+                            .style("fill", "#F2F2F2")
+                            .style("cursor", "pointer")
+                        }
+                    }
+                })
+                .on("mouseout", function() {
+                    if (!d3.select(this).classed("clicked") && !scoreFilter) {
+                        filter4 = "All"
+                        d3.select(this)
+                        .style("fill", "#D73241")
+                        filter(filter1, filter2, filter3, filter4) 
+                    }
+                    else {
+                        if (!d3.select(this).classed("clicked") && scoreFilter) {
+                            d3.select(this)
+                            .style("fill", "#D73241")    
+                        }
+                    }
+                })
+                .on("click", function() {
+                    if (!d3.select(this).classed("clicked")) {
+                        d3.select(this)
+                        .classed("clicked", true)  
+                        .style("fill", "#F2F2F2")
+                        filter4 = parseFloat(d3.select(this).html())
+                        d3.selectAll(".y-axis").each(function() {
+                            if (parseFloat(d3.select(this).html()) != filter4) {
+                                d3.select(this)
+                                .classed("clicked", false)
+                                .style("fill", "#D73241")
+                            }
+                        })
+                        scoreFilter = true
+                        filter(filter1, filter2, filter3, filter4) 
+                    }
+                    else {
+                        scoreFilter = false
+                        d3.select(this)
+                        .classed("clicked", false)
+                        .style("fill", "#D73241")
+                        filter4 = "All"
+
+                    }
+                })
+            })
+            
+            //x axis line
+            svg.append("line")
+                .classed("axis-line", true)
+                .attr("x1", 0)
+                .attr("y1", height - margin/2)
+                .attr("x2", width + 500)
+                .attr("y2", height - margin/2)
+            
+            //y axis line
+            svg.append("line")
+                .classed("axis-line", true)
+                .attr("x1", 0)
+                .attr("y1", height - margin/2)
+                .attr("x2", 0)
+                .attr("y2", -120)
+
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //filter
+
+            //select genre
+            var genreGroup = ["All", "Rock", "Rap", "Pop/R&B", "Electronic", "Experimental", "Folk/Country"]
+            
+            //initialize genre dropdown 
+            d3.select("#select-genre")
+                .selectAll('genreOptions')
+                .data(genreGroup)
+                .enter()
+                .append('option')
+                .text(function(d) {return d})      
+            
+            //filter function
+            function filter(filter1, filter2, filter3, filter4) {
+                draw(filteredData, yearWidth, newDraw, reset, false)  
+                if (filter1 === "All" && filter2 === "All" && filter3 === "All" && filter4 === "All") {
+                    draw(filteredData, yearWidth, newDraw, reset, highlight)
+                }
+                else {
+                    var updatedData = filteredData
+                    if (filter1 != "All") {
+                        updatedData = updatedData.filter(function(row) {
+                            return row.genre === filter1
+                        })
+                    }
+                    if (filter2 === "Best") {
+                        console.log("best")
+                        updatedData = updatedData.filter(function(row) {
+                            return row.best === "1"
+                        })
+                        console.log(updatedData)
+                    }
+                    if (filter2 === "Rollingstone") {
+                        updatedData = updatedData.filter(function(row) {
+                            return sharedAlbums.includes(row.albumartist)
+                        })    
+                    }
+                    if (filter2 === "Long") {
+                        updatedData = updatedData.filter(function(row) {
+                            return row.reviewlength >= avgLength*1.5
+                        })    
+                    }
+                    if (filter2 === "Short") {
+                        updatedData = updatedData.filter(function(row) {
+                            return row.reviewlength < avgLength/1.5
+                        })    
+                    }
+                    if (filter2 === "Max") {
+                        updatedData = updatedData.filter(function(row) {
+                            return row.reviewlength === d3.extent(updatedData, function(d) {return d.reviewlength})[1]
+                        })    
+                    }
+                    if (filter2 === "Min") {
+                        updatedData = updatedData.filter(function(row) {
+                            return row.reviewlength === d3.extent(updatedData, function(d) {return d.reviewlength})[0]
+                        })    
+                    }
+                    if (filter3 != "All") {
+                        updatedData = updatedData.filter(function(row) {
+                            return row.year === filter3  
+                        })    
+                    }
+                    if (filter4 != "All") {
+                        updatedData = updatedData.filter(function(row) {
+                            return row.score > (filter4 - 0.5) && row.score <= (filter4 + 0.5)
+                        })    
+                    }
+                    draw(updatedData, yearWidth, newDraw, reset, highlight)   
+                }
+            }
+
+            //select genre
+            d3.select("#select-genre").on("change", function(e) {
+                filter1 = e.target.value
+                filter(filter1, filter2, filter3, filter4)
+            })
+
+            function filterButton(id, filterValue) {
+                if (d3.select(id).classed("hide") === true) {
+                    d3.selectAll('.filter-button').each(function(d, i) {
+                        if (d3.select(this) != d3.select(id)) {
+                            d3.select(this)
+                            .classed("hide", true) 
+                        }
+                    })
+                    if (id === "#longest-button" || id === "#shortest-button") {
+                        d3.selectAll('circle').each(function(d,i) {
+                            d3.select(this)
+                            .style("pointer-events", "none")
+                        })
+                        highlight = true
+                    }
+                    else {
+                        d3.selectAll('circle').each(function(d,i) {
+                            d3.select(this)
+                            .style("pointer-events", "auto")
+                        })
+                        highlight = false
+                    }
+                    d3.select(id)
+                    .classed("show", true)
+                    .classed("hide", false)
+                    filter2 = filterValue
+                }
+                else {   
+                    d3.selectAll('circle').each(function(d,i) {
+                        d3.select(this)
+                        .style("pointer-events", "auto")
+                    })
+                    highlight = false
+                    d3.select(id)
+                    .classed("hide", true)
+                    .classed("show", false)
+                    filter2 = "All"
+                }
+                filter(filter1, filter2, filter3, filter4)
+            }
+
+            //best new music button
+            d3.select('#best-button').on('click', function(e) {
+                filterButton("#best-button", "Best")
+            })
+
+            //rolling stone button
+            //shared albums 
+            var pitchforkAlbums = filteredData.map(function(e) {return e.album + " " + e.artist})
+            var rollingstoneAlbums = data[1].map(function(e) {return e.Album + " " + e.Artist})
+            
+            var sharedAlbums = []
+            for (var i = 0; i < rollingstoneAlbums.length; i++) {
+                for (var j = 0; j < pitchforkAlbums.length; j++) {
+                    if (rollingstoneAlbums[i] === pitchforkAlbums[j]) {
+                        sharedAlbums.push(rollingstoneAlbums[i])    
+                    }
+                }
+            }
+
+            d3.select('#rollingstone-button').on('click', function(e) {
+                filterButton("#rollingstone-button", "Rollingstone")
+            })
+
+            //long reviews button
+            //average review length
+            var sumLength = 0
+            filteredData.forEach(function(e) {
+                sumLength = sumLength + e.reviewlength
+            })
+            var avgLength = sumLength / filteredData.length;
+            d3.select('#long-button').on('click', function(e) {
+                filterButton("#long-button", "Long")
+            })
+
+            //short reviews button
+            d3.select('#short-button').on('click', function(e) {
+                filterButton("#short-button", "Short")
+            })
+
+            //
+            //
+            //
+            //highlight
+            //longest review button
+            d3.select('#longest-button').on('click', function() {
+                filterButton("#longest-button", "Max")
+            })
+
+            //shortest review button
+            d3.select('#shortest-button').on('click', function() {
+                filterButton("#shortest-button", "Min")
+            })
+        })
+
+    </script>
+    
 </body>
-<script>
-	window.addEventListener('scroll', function() {
-		let elements = document.getElementsByClassName('scroll');
-		let elements2 = document.getElementsByClassName('slow-scroll');
-		let scrolled = window.pageYOffset; 
-		let rate = scrolled * 0.06;
-		let rate2 = scrolled * 0.03;
-		for (let i = 0; i < elements.length; i++) {
-			elements[i].style.transform = 'translate3d(0px, '+rate+'px, 0px)';
-		}
-		for (let j = 0; j < elements2.length; j++) {
-			elements2[j].style.transform = 'translate3d(0px, '+rate2+'px, 0px)';
-		}
-	});
-
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach((entry) => {
-			console.log(entry);
-			if (entry.isIntersecting) {
-				entry.target.classList.add('show');
-			}
-		});
-	});
-
-	const hiddenElements = document.querySelectorAll('.hidden');
-	hiddenElements.forEach((el) => observer.observe(el));
-
-	function imageFocus(id) {
-		let image = document.getElementById(id);
-		image.style.opacity = 1;
-		image.style.zIndex = 100;
-	}
-	function unFocus(id) {
-		let image = document.getElementById(id);
-		image.style.opacity = 0;
-		image.style.zIndex = -1;
-	}
-</script>
 </html>
