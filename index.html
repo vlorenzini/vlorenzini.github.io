@@ -4082,7 +4082,6 @@
                 d3.selectAll(".sad").style("fill", colorScale(averages[4]))
                 d3.select("#crystal").style("transform", rotation[averages[5]*2])
                 d3.select("#crystal").style("scale", scales[averages[1]*2])
-                d3.select("#crystal").style("-webkit-transform", scalesString[averages[1]*2])
             }
 
             // COLOR TIME BASED CRYSTAL
@@ -4099,7 +4098,6 @@
                 d3.selectAll(".sad").style("fill", colorScale(filteredData[0].SAD))
                 d3.select("#crystal").style("transform", rotation[filteredData[0].TIRED*2])
                 d3.select("#crystal").style("scale", scales[filteredData[0].MEANING*2])
-                d3.select("#crystal").style("-webkit-transform", scalesString[filteredData[0].MEANING*2])
                 
 
                 d3.select("#happy-score").html(filteredData[0].HAPPY).style("width", "2em")
