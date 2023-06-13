@@ -4071,6 +4071,7 @@
                 "rotate(50deg)"]
 
             // SCALE
+            var scalesString = ["scale(0.7)", "scale(0.75)", "scale(0.8)", "scale(0.85)", "scale(0.9)", "scale(0.95)", "scale(1)", "scale(1.05)", "scale(1.1)", "scale(1.15)", "scale(1.2)", "scale(1.25)", "scale(1.3)"]
             var scales = [0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3]
 
             // COLOR  AVERAGE CRYSTAL 
@@ -4081,6 +4082,7 @@
                 d3.selectAll(".sad").style("fill", colorScale(averages[4]))
                 d3.select("#crystal").style("transform", rotation[averages[5]*2])
                 d3.select("#crystal").style("scale", scales[averages[1]*2])
+                d3.select("#crystal").style(" -webkit-transform", scalesString[averages[1]*2])
             }
 
             // COLOR TIME BASED CRYSTAL
@@ -4097,7 +4099,8 @@
                 d3.selectAll(".sad").style("fill", colorScale(filteredData[0].SAD))
                 d3.select("#crystal").style("transform", rotation[filteredData[0].TIRED*2])
                 d3.select("#crystal").style("scale", scales[filteredData[0].MEANING*2])
-                d3.select("#crystal").style("scaleX", scales[filteredData[0].PAIN*2])
+                d3.select("#crystal").style(" -webkit-transform", scalesString[filteredData[0].MEANING*2])
+                
 
                 d3.select("#happy-score").html(filteredData[0].HAPPY).style("width", "2em")
                 d3.select("#meaning-score").html(filteredData[0].MEANING).style("width", "2em")
