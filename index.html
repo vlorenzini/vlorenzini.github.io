@@ -222,7 +222,7 @@
         </div>
         <div id = "step3" class = "info padding">
             <p class = "text-box">
-                Let's dive into the data from 2021 and explore the activity trends of a weekday. 
+                Using the data from 2021, we can explore how Americans spend and experience the day, through the lens of both activity and emotion.<br><br>Let's start by looking at the activity trends of a weekday. 
             </p>
         </div>
         <div id = "step4" class = "info padding">
@@ -252,7 +252,7 @@
         </div>
         <div id = "step9" class = "info padding">
             <p class = "text-box">
-                But activity is only one part of the story, we can also explore people's emotional responses during these activities. 
+                But activity is only one part of the story, let's also explore people's emotional responses during these activities. 
             </p>
         </div>  
         <div id = "step10" class = "info padding">
@@ -327,7 +327,7 @@
         </div> 
         <div id = "step20" class = "info padding">
             <p class = "text-box">
-                But emotion is not static, it changes over time. Let's take a walk through an average day and track both emotion and activity hour by hour.<br><br>You can use the dropdown menu to switch between weekday and weekend.<br><br>And you can hover over the question mark to see a guide for how to read the crystal. 
+                But emotion is not static, it changes over time. Let's take a walk through an average day and track both emotion and activity hour by hour.<br><br>You can use the dropdown menu to switch between weekday and weekend and you can hover over the question mark to see a guide for how to read the crystal. 
             </p>
         </div> 
         <div id = "step21" class = "info padding">
@@ -4098,7 +4098,6 @@
                 d3.selectAll(".sad").style("fill", colorScale(filteredData[0].SAD))
                 d3.select("#crystal").style("transform", rotation[filteredData[0].TIRED*2])
                 d3.select("#crystal").style("scale", scales[filteredData[0].MEANING*2])
-                
 
                 d3.select("#happy-score").html(filteredData[0].HAPPY).style("width", "2em")
                 d3.select("#meaning-score").html(filteredData[0].MEANING).style("width", "2em")
