@@ -21,11 +21,13 @@
     <div class = "sticky-section">
         <div class = "sticky">
             <div class = "line" id = "margin-line-top"></div>
-            <div class = "icons" id = "time" style = "opacity: 0;"><h2>4 - 5AM</h2></div>
+            <div class = "header-info icons">
+                <div class = "select-container">
+                    <select id="select-day"></select>    
+                </div> 
+                <div id = "time" style = "opacity: 0;"><h2>WEEKDAY</h2></div>    
+            </div>
             <div class = "icons" id = "day" style = "opacity: 0;"><h2>WEEKDAY</h2></div>
-            <div class = "select-container icons">
-                <select id="select-day"></select>    
-            </div> 
             <div id = "guide">
                 <p style = "font-weight: 600;">Emotion Crystal</p>
                 <img id = "guide-image" alt = "guide to crystal" src = "SVG/guide.svg">
@@ -81,25 +83,46 @@
             <div id = "container"></div>
             <div id = "area1" class = "area-container">  
                 <p style = "opacity: 0;" id = "activitySidebar" class = "sidebar-group">ACTIVITY</p>
-                <p id = "pc-label" class = "y-axis-label">PERSONAL CARE</p>
+                <div class = "activity-container">
+                    <p class = "percent" id = "PC-percent"></p>
+                    <p id = "pc-label" class = "y-axis-label">PERSONAL CARE</p>    
+                </div>
             </div>
             <div id = "area2" class = "area-container"> 
-                <p id = "l-label" class = "y-axis-label">LEISURE</p>
+                <div class = "activity-container">
+                    <p class = "percent" id = "L-percent"></p>
+                    <p id = "l-label" class = "y-axis-label">LEISURE</p>    
+                </div>
             </div>
             <div id = "area3" class = "area-container"> 
-                <p id = "w-label" class = "y-axis-label">WORK</p> 
+                <div class = "activity-container">
+                    <p class = "percent" id = "W-percent"></p>
+                    <p id = "w-label" class = "y-axis-label">WORK</p> 
+                </div>
             </div>
             <div id = "area4" class = "area-container">  
-                <p id = "ha-label" class = "y-axis-label">HOUSEHOLD ACTIVITIES</p>
+                <div class = "activity-container">
+                    <p class = "percent" id = "HA-percent"></p>
+                    <p class = "y-axis-label">HOUSEHOLD ACTIVITIES</p>
+                </div>
             </div>
             <div id = "area5" class = "area-container">  
-                <p id = "ed-label" class = "y-axis-label">EATING & DRINKING</p>
+                <div class = "activity-container">
+                    <p class = "percent" id = "ED-percent"></p>
+                    <p class = "y-axis-label">EATING & DRINKING</p>
+                </div>
             </div>
             <div id = "area6" class = "area-container">
-                <p id = "t-label" class = "y-axis-label">TRAVEL</p>
+                <div class = "activity-container">
+                    <p class = "percent" id = "T-percent"></p>
+                    <p class = "y-axis-label">TRAVEL</p>
+                </div>
             </div>
             <div id = "area7" class = "area-container">
-                <p id = "e-label" class = "y-axis-label">EDUCATION</p>
+                <div class = "activity-container">
+                    <p class = "percent" id = "E-percent"></p>
+                    <p class = "y-axis-label">EDUCATION</p>
+                </div>
             </div>
 
             <div id = "crystal-container"></div>
@@ -560,8 +583,8 @@
 
             // DIMENSIONS AREA CHARTS
             var margin = {top: 10, right: 20, bottom: 0, left: 0},
-            width = window.innerWidth/1.128 - margin.left - margin.right,
-            height = window.innerHeight/1.94 - margin.top - margin.bottom;
+            width = window.innerWidth/1.15 - margin.left - margin.right,
+            height = window.innerHeight/1.95 - margin.top - margin.bottom;
 
             // SVG AREA CHART 1
             var svg1 = d3.select("#area1")
@@ -638,7 +661,7 @@
 
             // DIMENSIONS HEATMAP
             var marginH = {top: 0, right: 20, bottom: 0, left: 0},
-            widthH = window.innerWidth/1.128 - marginH.left - marginH.right,
+            widthH = window.innerWidth/1.15 - marginH.left - marginH.right,
             heightH = window.innerHeight/3.3 - marginH.top - marginH.bottom;
 
             // SVG HEATMAP
@@ -663,9 +686,9 @@
                 .range([0, width]);
             var timesInt = [400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400]
             d3.select("#sunrise").style("left", (xAxis(timesInt[2]) - 12).toString() + "px")
-            d3.select("#sun").style("left", (xAxis(timesInt[8]) - 12).toString() + "px")
+            d3.select("#sun").style("left", (xAxis(timesInt[8]) - 10).toString() + "px")
             d3.select("#sunset").style("left", (xAxis(timesInt[14]) - 12).toString() + "px")
-            d3.select("#moon").style("left", (xAxis(timesInt[18]) - 12).toString() + "px")
+            d3.select("#moon").style("left", (xAxis(timesInt[18]) - 8).toString() + "px")
 
             // ICON LINES
             d3.select("#sunrise-line").style("left", xAxis(timesInt[4]).toString() + "px")
@@ -742,9 +765,16 @@
                     d3.selectAll(".select-container").style("opacity", 0)
                     d3.select("#select-day").style("pointer-events", "none")
                     d3.select("#time").style("opacity", 0);  
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 0); 
                     d3.select("#activitySidebar").style("opacity", 0); 
+                    d3.select("#PC-percent").html("").style("width", 0);
+                    d3.select("#L-percent").html("").style("width", 0);
+                    d3.select("#W-percent").html("").style("width", 0);
+                    d3.select("#HA-percent").html("").style("width", 0);
+                    d3.select("#ED-percent").html("").style("width", 0);
+                    d3.select("#T-percent").html("").style("width", 0);
+                    d3.select("#E-percent").html("").style("width", 0);
                     //d3.select("#emotion-labels").style("height", "24vh");
                     d3.select("#happy-label").style("opacity", 0);
                     d3.select("#meaning-label").style("opacity", 0);
@@ -808,21 +838,21 @@
                 // INTRO
                 if (inView("step2")) {  
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0);  
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2);  
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
-                    d3.select("#activitySidebar").style("opacity", 1); 
+                    d3.select("#activitySidebar").style("opacity", 1);
                     //d3.select("#emotion-labels").style("height", "26.8vh");
-                    d3.select("#happy-label").style("opacity", 1);
-                    d3.select("#meaning-label").style("opacity", 1);
-                    d3.select("#tired-label").style("opacity", 1);
-                    d3.select("#stress-label").style("opacity", 1);
-                    d3.select("#pain-label").style("opacity", 1);
-                    d3.select("#sad-label").style("opacity", 1);
+                    d3.select("#happy-label").style("opacity", 0.2);
+                    d3.select("#meaning-label").style("opacity", 0.2);
+                    d3.select("#tired-label").style("opacity", 0.2);
+                    d3.select("#stress-label").style("opacity", 0.2);
+                    d3.select("#pain-label").style("opacity", 0.2);
+                    d3.select("#sad-label").style("opacity", 0.2);
                     d3.select("#happy-score").html("");
                     d3.select("#meaning-score").html("");
                     d3.select("#tired-score").html("");
@@ -835,7 +865,7 @@
                     d3.select("#stress-score").style("width", "0px");
                     d3.select("#pain-score").style("width", "0px");
                     d3.select("#sad-score").style("width", "0px");
-                    d3.selectAll(".y-axis-label").style("opacity", 1)
+                    d3.selectAll(".y-axis-label").style("opacity", 0.2)
                     d3.selectAll(".y-axis-label-expand").attr("class", "y-axis-label")
                     d3.select("#crystal").style("opacity", 0); 
                     d3.select("#crystal").style("width", 100); 
@@ -879,12 +909,12 @@
                 // AVERAGE ACTIVITY WEEKDAY
                 if (inView("step3")) {  
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0);  
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1);  
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.select("#activitySidebar-expand").attr("id", "activitySidebar"); 
@@ -951,12 +981,12 @@
                 // AVERAGE ACTIVITY WEEKDAY EXPAND
                 if (inView("step4")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 0); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").attr("id", "activitySidebar-expand"); 
@@ -1023,12 +1053,12 @@
                 // HIGHLIGHT PERSONAL CARE
                 if (inView("step5")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 0); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").attr("id", "activitySidebar-expand"); 
@@ -1099,12 +1129,12 @@
                 // HIGHLIGHT WORK 
                 if (inView("step6")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 0); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").attr("id", "activitySidebar-expand"); 
@@ -1175,12 +1205,12 @@
                 // HIGHLIGHT LEISURE
                 if (inView("step7")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 0); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").attr("id", "activitySidebar-expand"); 
@@ -1251,12 +1281,12 @@
                 // AVERAGE ACTIVITY WEEKEND EXPAND
                 if (inView("step8")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKEND"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKEND"); 
                     d3.select("#emotionSidebar").style("opacity", 0); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").attr("id", "activitySidebar-expand"); 
@@ -1326,12 +1356,12 @@
                 // INITIALIZE EMOTION
                 if (inView("step9")) {  
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0);  
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2);  
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar-expand").attr("id", "activitySidebar"); 
@@ -1401,12 +1431,12 @@
                 // INTRODUCTION EMOTION 
                 if (inView("step10")) {  
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0);  
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2);  
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1473,12 +1503,12 @@
                 // CRYSTAL 
                 if (inView("step11")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1548,12 +1578,12 @@
                 // HOW TO READ HAPPY
                 if (inView("step12")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1623,12 +1653,12 @@
                 // HOW TO READ STRESS
                 if (inView("step13")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1698,12 +1728,12 @@
                 // HOW TO READ PAIN
                 if (inView("step14")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1773,12 +1803,12 @@
                 // HOW TO READ SAD
                 if (inView("step15")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1848,12 +1878,12 @@
                 // HOW TO READ TIRED
                 if (inView("step16")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1923,12 +1953,12 @@
                 // HOW TO READ MEANING
                 if (inView("step17")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("top", 0); 
@@ -1998,12 +2028,12 @@
                 // AVERAGE WEEKDAY EMOTIONS 
                 if (inView("step18")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.selectAll(".y-axis-label").style("opacity", 1)
@@ -2071,12 +2101,12 @@
                 // AVERAGE WEEKEND EMOTIONS 
                 if (inView("step19")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKEND"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("4 - 5AM"); 
+                    d3.select("#time").style("opacity", 1).style("width", "auto"); 
+                    d3.select("#time").html("WEEKEND"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.selectAll(".y-axis-label").style("opacity", 1)
@@ -2148,11 +2178,18 @@
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 1);
                     d3.select("#select-day").style("pointer-events", "all").style("color", "#E3E667").style("border-bottom", "1px solid white")
-                    d3.select("#time").style("opacity", 0); 
+                    d3.select("#time").style("opacity", 0).style("width", 0); 
                     d3.select("#time").html("4 - 5AM"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.selectAll(".y-axis-label").style("opacity", 0.2)
+                    d3.select("#PC-percent").html("").style("width", 0);
+                    d3.select("#L-percent").html("").style("width", 0);
+                    d3.select("#W-percent").html("").style("width", 0);
+                    d3.select("#HA-percent").html("").style("width", 0);
+                    d3.select("#ED-percent").html("").style("width", 0);
+                    d3.select("#T-percent").html("").style("width", 0);
+                    d3.select("#E-percent").html("").style("width", 0);
                     //d3.select("#emotion-labels").style("height", "26.8vh");
                     d3.select("#happy-label").style("opacity", 1);
                     d3.select("#meaning-label").style("opacity", 1);
@@ -2258,7 +2295,7 @@
                     d3.selectAll(".select-container").style("opacity", 1);
                     d3.select("#select-day").style("pointer-events", "all").style("color", "white").style("border-bottom", "none")
                     d3.selectAll(".select-container").style("opacity", 1);
-                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").style("opacity", 1).style("width", "auto");
                     d3.select("#time").html("4 - 5AM"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 1); 
@@ -3761,15 +3798,22 @@
                 // HEATMAP WEEKDAY 
                 if (inView("step41")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("11 - 12PM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.selectAll(".y-axis-label").style("opacity", 1);
+                    d3.select("#PC-percent").html("").style("width", 0);
+                    d3.select("#L-percent").html("").style("width", 0);
+                    d3.select("#W-percent").html("").style("width", 0);
+                    d3.select("#HA-percent").html("").style("width", 0);
+                    d3.select("#ED-percent").html("").style("width", 0);
+                    d3.select("#T-percent").html("").style("width", 0);
+                    d3.select("#E-percent").html("").style("width", 0);
                     d3.select("#emotion-labels").style("justify-content", "space-around").style("height", heightH + "px");
                     d3.select("#happy-label").style("margin-top", 0);
                     d3.selectAll(".emotion-container").style("margin-bottom", 0);
@@ -3835,12 +3879,12 @@
                 // HEATMAP WEEKDAY TIME OF DAY
                 if (inView("step42")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKDAY"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("11 - 12PM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKDAY"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.selectAll(".y-axis-label").style("opacity", 1);
@@ -3906,12 +3950,12 @@
                 // HEATMAP WEEKEND 
                 if (inView("step43")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 1);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKEND"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("3 - 4PM"); 
+                    d3.select("#time").style("opacity", 1); 
+                    d3.select("#time").html("WEEKEND"); 
                     d3.select("#emotionSidebar").style("opacity", 1); 
                     d3.select("#activitySidebar").style("opacity", 1); 
                     d3.selectAll(".y-axis-label").style("opacity", 1);
@@ -3977,12 +4021,12 @@
                 // OUTRO 
                 if (inView("step44")) {
                     d3.select("#area1").style("border-top", "none")
-                    d3.select("#day").style("opacity", 0.2);
+                    d3.select("#day").style("opacity", 0);
                     d3.select("#day").html("WEEKEND"); 
                     d3.selectAll(".select-container").style("opacity", 0);
                     d3.select("#select-day").style("pointer-events", "none")
-                    d3.select("#time").style("opacity", 0); 
-                    d3.select("#time").html("3 - 4PM"); 
+                    d3.select("#time").style("opacity", 0.2); 
+                    d3.select("#time").html("WEEKEND"); 
                     d3.select("#emotionSidebar").style("opacity", 0.2); 
                     d3.select("#activitySidebar").style("opacity", 0.2); 
                     d3.selectAll(".y-axis-label").style("opacity", 0.2);
@@ -4147,6 +4191,8 @@
                 
                 // DRAW AREA 1
                 // BIND TO NEW DATA
+                var average = (filteredData[0].PC + filteredData[1].PC) / 2
+                d3.select("#PC-percent").html(average+"%").style("width", "3em")
                 var uF = svg1.selectAll(".myPathF")
                     .data([filteredData], function(d) {return d.Time})
                 // UPDATE LINE
@@ -4167,6 +4213,8 @@
                     .attr("stroke-width", 1) 
                 // DRAW AREA 2
                 // BIND TO NEW DATA
+                var average = (filteredData[0].L + filteredData[1].L) / 2
+                d3.select("#L-percent").html(average+"%").style("width", "3em")
                 var uF = svg2.selectAll(".myPathF")
                     .data([filteredData], function(d) {return d.Time})
                 // UPDATE LINE
@@ -4187,6 +4235,8 @@
                     .attr("stroke-width", 1) 
                 // DRAW AREA 3
                 // BIND TO NEW DATA
+                var average = (filteredData[0].W + filteredData[1].W) / 2
+                d3.select("#W-percent").html(average+"%").style("width", "3em")
                 var uF = svg3.selectAll(".myPathF")
                     .data([filteredData], function(d) {return d.Time})
                 // UPDATE LINE
@@ -4207,6 +4257,8 @@
                     .attr("stroke-width", 1) 
                 // DRAW AREA 4
                 // BIND TO NEW DATA
+                var average = (filteredData[0].HA + filteredData[1].HA) / 2
+                d3.select("#HA-percent").html(average+"%").style("width", "3em")
                 var uF = svg4.selectAll(".myPathF")
                     .data([filteredData], function(d) {return d.Time})
                 // UPDATE LINE
@@ -4227,6 +4279,8 @@
                     .attr("stroke-width", 1) 
                 // DRAW AREA 5
                 // BIND TO NEW DATA
+                var average = (filteredData[0].ED + filteredData[1].ED) / 2
+                d3.select("#ED-percent").html(average+"%").style("width", "3em")
                 var uF = svg5.selectAll(".myPathF")
                     .data([filteredData], function(d) {return d.Time})
                 // UPDATE LINE
@@ -4247,6 +4301,8 @@
                     .attr("stroke-width", 1) 
                 // DRAW AREA 6
                 // BIND TO NEW DATA
+                var average = (filteredData[0].T + filteredData[1].T) / 2
+                d3.select("#T-percent").html(average+"%").style("width", "3em")
                 var uF = svg6.selectAll(".myPathF")
                     .data([filteredData], function(d) {return d.Time})
                 // UPDATE LINE
@@ -4267,6 +4323,8 @@
                     .attr("stroke-width", 1) 
                 // DRAW AREA 7
                 // BIND TO NEW DATA
+                var average = (filteredData[0].E + filteredData[1].E) / 2
+                d3.select("#E-percent").html(average+"%").style("width", "3em")
                 var uF = svg7.selectAll(".myPathF")
                     .data([filteredData], function(d) {return d.Time})
                 // UPDATE LINE
